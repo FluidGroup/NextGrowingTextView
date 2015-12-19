@@ -1,4 +1,4 @@
-// ViewController.swift
+// View.swift
 //
 // Copyright (c) 2015 muukii
 //
@@ -19,20 +19,31 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+
+import Foundation
 import UIKit
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.becomeFirstResponder()
-        // Do any additional setup after loading the view, typically from a nib.
+class View: UIView {
+    
+    override func canBecomeFirstResponder() -> Bool {
+        
+        return true
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func canResignFirstResponder() -> Bool {
+        
+        return true
     }
-
+    
+    override func resignFirstResponder() -> Bool {
+        
+        return true
+    }
+    
+    override var inputAccessoryView: UIView? {
+        
+        return _inputAccessoryView
+    }
+    
+    let _inputAccessoryView = InputAccessoryView()
 }
-

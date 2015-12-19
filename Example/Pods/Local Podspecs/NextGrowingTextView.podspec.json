@@ -1,0 +1,25 @@
+{
+  "name": "NextGrowingTextView",
+  "version": "0.1.0",
+  "summary": "A short description of NextGrowingTextView.",
+  "description": "",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/NextGrowingTextView",
+  "license": "MIT",
+  "authors": {
+    "muukii": "m@muukii.me"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/NextGrowingTextView.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "NextGrowingTextView": [
+      "Pod/Assets/*.png"
+    ]
+  }
+}

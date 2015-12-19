@@ -1,0 +1,6 @@
+framework module Pods_NextGrowingTextView_Tests {
+  umbrella header "Pods-NextGrowingTextView_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
