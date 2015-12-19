@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.name             = "NextGrowingTextView"
   s.version          = "0.1.0"
   s.summary          = "The next in the generations of 'growing textviews' optimized for iOS 7 and above."
-  s.homepage         = "https://github.com/muukiii/NextGrowingTextView"
+  s.homepage         = "https://github.com/muukii/NextGrowingTextView"
   s.license          = 'MIT'
   s.author           = { "muukii" => "m@muukii.me" }
   s.source           = { :git => "https://github.com/muukii/NextGrowingTextView.git", :tag => s.version.to_s }
