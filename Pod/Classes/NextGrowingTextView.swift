@@ -78,12 +78,6 @@ public class NextGrowingTextView: UIScrollView {
         self.textView = textView
         super.init(frame: frame)
         
-        if #available(iOS 8.0, *) {
-            self.layoutMargins = UIEdgeInsetsZero
-        } else {
-            // Fallback on earlier versions
-        }
-        
         self.textView.delegate = self
         self.textView.scrollEnabled = false
         self.textView.font = UIFont.systemFontOfSize(16)
@@ -95,26 +89,6 @@ public class NextGrowingTextView: UIScrollView {
     
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: TextView
-    
-    public var placeholderAttributedText: NSAttributedString? {
-        get {return self.textView.placeholderAttributedText }
-        set {self.textView.placeholderAttributedText = newValue }
-    }
-    
-    public var font: UIFont? {
-        get { return self.textView.font }
-        set { self.textView.font = newValue }
-    }
-    
-    public var text: String! {
-        get { return self.textView.text }
-        set {
-            self.textView.text = newValue
-            self.fitToScrollView()
-        }
     }
     
     // MARK: UIResponder
@@ -144,30 +118,38 @@ public class NextGrowingTextView: UIScrollView {
         
         let followBottom = self.contentOffset.y == self.contentSize.height - self.frame.height
         
-        var size = self.measureTextViewSize()
-        size.width = self.frame.width
-        size.height = max(self.minHeight, size.height)
+        let originalNewSizeHeight: CGFloat = self.measureTextViewSize().height
+        let newSizeHeight: CGFloat
         
-        let oldSize = self.textView.frame.size
+        if originalNewSizeHeight < self.minHeight || !self.textView.hasText() {
+            newSizeHeight = self.minHeight
+        } else if self.maxHeight > 0 && originalNewSizeHeight > self.maxHeight {
+            newSizeHeight = self.maxHeight
+        } else {
+            newSizeHeight = originalNewSizeHeight
+        }
         
-        if oldSize.height != size.height && self.maxHeight > 0 && self.maxHeight >= size.height {
-            self.delegates.willChangeHeight(size.height)
+        let oldSize = self.frame.size
+        
+        if oldSize.height != newSizeHeight && newSizeHeight <= self.maxHeight {
+            self.flashScrollIndicators()
+            self.delegates.willChangeHeight(newSizeHeight)
         }
         
         var frame = self.textView.frame
-        frame.size = size
+        frame.size.height = originalNewSizeHeight
         textView.frame = frame
-        self.contentSize = size
+        self.contentSize = frame.size
+        
+        var scrollViewFrame = self.frame
+        scrollViewFrame.size.height = newSizeHeight
+        self.frame = scrollViewFrame
         
         if followBottom {
             self.scrollToBottom()
         }
         
-        if self.maxHeight >= size.height {
-            var frame = self.frame
-            frame.size.height = size.height
-            self.frame = frame
-        }
+        self.delegates.didChangeHeight(newSizeHeight)
     }
     
     private func scrollToBottom() {
@@ -197,6 +179,113 @@ public class NextGrowingTextView: UIScrollView {
         self.textView.delegate = self
         
         return height
+    }
+}
+
+// MARK: TextView Properties
+extension NextGrowingTextView {
+    
+    // MARK: TextView Extension
+    
+    public var placeholderAttributedText: NSAttributedString? {
+        get {return self.textView.placeholderAttributedText }
+        set {self.textView.placeholderAttributedText = newValue }
+    }
+    
+    // MARK: TextView
+    
+    public var text: String! {
+        get { return self.textView.text }
+        set {
+            self.textView.text = newValue
+            self.fitToScrollView()
+        }
+    }
+    
+    public var font: UIFont? {
+        get { return self.textView.font }
+        set { self.textView.font = newValue }
+    }
+    
+    public var textColor: UIColor? {
+        get { return self.textView.textColor }
+        set { self.textView.textColor = newValue }
+    }
+    
+    public var textAlignment: NSTextAlignment {
+        get { return self.textView.textAlignment }
+        set { self.textView.textAlignment = newValue }
+    }
+    
+    public var selectedRange: NSRange {
+        get { return self.textView.selectedRange }
+        set { self.textView.selectedRange = newValue }
+    }
+    
+    public var dataDetectorTypes: UIDataDetectorTypes {
+        get { return self.textView.dataDetectorTypes }
+        set { self.textView.dataDetectorTypes = newValue }
+    }
+    
+    public var selectable: Bool {
+        get { return self.textView.selectable }
+        set { self.textView.selectable = newValue }
+    }
+    
+    public var allowsEditingTextAttributes: Bool {
+        get { return self.allowsEditingTextAttributes }
+        set { self.allowsEditingTextAttributes = newValue }
+    }
+    
+    public var attributedText: NSAttributedString! {
+        get { return self.attributedText }
+        set { self.attributedText = newValue }
+    }
+    
+    public var typingAttributes: [String : AnyObject] {
+        get { return self.typingAttributes }
+        set { self.typingAttributes = newValue }
+    }
+    
+    public func scrollRangeToVisible(range: NSRange) {
+        self.textView.scrollRangeToVisible(range)
+    }
+    
+    public var textViewInputView: UIView? {
+        get { return self.textView.inputView }
+        set { self.textView.inputView = newValue }
+    }
+    
+    public var textViewInputAccessoryView: UIView? {
+        get { return self.textView.inputAccessoryView }
+        set { self.textView.inputAccessoryView = newValue }
+    }
+    
+    public var clearsOnInsertion: Bool {
+        get { return self.textView.clearsOnInsertion }
+        set { self.textView.clearsOnInsertion = newValue }
+    }
+    
+    public var textContainer: NSTextContainer {
+        return self.textView.textContainer
+    }
+    
+    public var textContainerInset: UIEdgeInsets {
+        get { return self.textView.textContainerInset }
+        set { self.textView.textContainerInset = newValue }
+    }
+    
+    public var layoutManger: NSLayoutManager {
+        return self.textView.layoutManager
+    }
+    
+    public var textStorage: NSTextStorage {
+        return self.textView.textStorage
+    }
+    
+    public var linkTextAttributes: [String : AnyObject]! {
+        get { return self.textView.linkTextAttributes }
+        set { self.textView.linkTextAttributes = newValue }
     }
 }
 

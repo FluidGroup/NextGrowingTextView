@@ -214,8 +214,8 @@
 		CBC388B38A9CEF7EAC15FC0AE33E989E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4B96C7341C2556000025BAE8 /* NextGrowingInternalTextView.swift */,
 				4B96C7351C2556000025BAE8 /* NextGrowingTextView.swift */,
+				4B96C7341C2556000025BAE8 /* NextGrowingInternalTextView.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
