@@ -11,7 +11,6 @@ Pod::Spec.new do |s|
   s.version          = "0.1.0"
   s.summary          = "The next in the generations of 'growing textviews' optimized for iOS 7 and above."
   s.homepage         = "https://github.com/muukiii/NextGrowingTextView"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "muukii" => "m@muukii.me" }
   s.source           = { :git => "https://github.com/muukii/NextGrowingTextView.git", :tag => s.version.to_s }
@@ -24,8 +23,4 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'NextGrowingTextView' => ['Pod/Assets/*.png']
   }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
