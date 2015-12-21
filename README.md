@@ -13,6 +13,30 @@ The next in the generations of 'growing textviews' optimized for iOS 7 and above
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+### Properties
+
+```swift
+public class Delegates {
+    public var shouldChangeTextInRange: (range: NSRange, replacementText: String) -> Bool
+    public var shouldInteractWithURL: (URL: NSURL, inRange: NSRange) -> Bool
+    public var shouldInteractWithTextAttachment: (textAttachment: NSTextAttachment, inRange: NSRange) -> Bool
+    public var textViewDidBeginEditing: (NextGrowingTextView) -> Void
+    public var textViewDidChangeSelection: (NextGrowingTextView) -> Void
+    public var textViewDidEndEditing: (NextGrowingTextView) -> Void
+    public var textViewShouldBeginEditing: (NextGrowingTextView) -> Bool
+    public var textViewShouldEndEditing: (NextGrowingTextView) -> Bool
+    public var textViewDidChange: (NextGrowingTextView) -> Void
+
+    public var willChangeHeight: (CGFloat) -> Void
+    public var didChangeHeight: (CGFloat) -> Void
+}
+
+public let delegates: NextGrowingTextView.NextGrowingTextView.Delegates
+public var minNumberOfLines: Int { get set }
+public var maxNumberOfLines: Int { get set }
+public override init(frame: CGRect)
+```
+
 ## Requirements
 
 iOS 7.0+
