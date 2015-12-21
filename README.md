@@ -9,6 +9,16 @@ The next in the generations of 'growing textviews' optimized for iOS 7 and above
 
 ![example1](sample1.gif)
 
+As a successor to [HPGrowingTextView](https://github.com/HansPinckaers/GrowingTextView), NextGrowingTextView was redesigned from scratch to provide the most elegant architecture for iOS 7 and above.
+
+Most autoresizing textviews are implemented with UITextView subclasses. The problem with that approach is that each iOS version changed UITextView's layout behavior, and so most of the implementations are laden with iOS version-specific workarounds to fix bugs and errant behavior. With NextGrowingTextView, the battle with the framework is now over.
+
+NextGrowingTextView approaches the problem differently by wrapping UITextView within a UIScrollView and aligning the textView to the scrollView's contentSize.
+```
+- public NextGrowingTextView: UIScrollView
+    - internal NextGrowingInternalTextView: UITextView
+```
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
