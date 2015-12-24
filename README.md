@@ -41,10 +41,21 @@ public class Delegates {
     public var didChangeHeight: (CGFloat) -> Void
 }
 
-public let delegates: NextGrowingTextView.NextGrowingTextView.Delegates
+public var delegates: Delegates
 public var minNumberOfLines: Int { get set }
 public var maxNumberOfLines: Int { get set }
 public override init(frame: CGRect)
+```
+
+## Delegates
+
+```
+let growingTextView: NextGrowingTextView
+
+growingTextView.delegates.textViewDidChange = { (growingTextView: NextGrowingTextView) in
+    // Do something
+}
+     
 ```
 
 ## Requirements

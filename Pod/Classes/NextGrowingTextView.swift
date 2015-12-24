@@ -40,7 +40,7 @@ public class NextGrowingTextView: UIScrollView {
         public var didChangeHeight: (CGFloat) -> Void = { _ in }
     }
     
-    public let delegates = Delegates()
+    public var delegates = Delegates()
     
     public var minNumberOfLines: Int {
         get {
