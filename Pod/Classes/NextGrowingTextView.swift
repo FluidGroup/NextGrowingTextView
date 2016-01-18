@@ -238,8 +238,11 @@ extension NextGrowingTextView {
     }
     
     public var attributedText: NSAttributedString! {
-        get { return self.attributedText }
-        set { self.attributedText = newValue }
+        get { return self.textView.attributedText }
+        set {
+            self.attributedText = newValue
+            self.fitToScrollView()
+        }
     }
     
     public var typingAttributes: [String : AnyObject] {
