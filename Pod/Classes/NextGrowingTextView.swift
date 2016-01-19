@@ -118,38 +118,38 @@ public class NextGrowingTextView: UIScrollView {
         
         let followBottom = self.contentOffset.y == self.contentSize.height - self.frame.height
         
-        let originalNewSizeHeight: CGFloat = self.measureTextViewSize().height
-        let newSizeHeight: CGFloat
+        let actualTextViewSize = self.measureTextViewSize()
+        let selfSize: CGSize
         
-        if originalNewSizeHeight < self.minHeight || !self.textView.hasText() {
-            newSizeHeight = self.minHeight
-        } else if self.maxHeight > 0 && originalNewSizeHeight > self.maxHeight {
-            newSizeHeight = self.maxHeight
+        if actualTextViewSize.height < self.minHeight || !self.textView.hasText() {
+            selfSize = CGSize(width: actualTextViewSize.width, height: self.minHeight)
+        } else if self.maxHeight > 0 && actualTextViewSize.height > self.maxHeight {
+            selfSize = CGSize(width: actualTextViewSize.width, height: self.maxHeight)
         } else {
-            newSizeHeight = originalNewSizeHeight
+            selfSize = actualTextViewSize
         }
         
         let oldSize = self.frame.size
         
-        if oldSize.height != newSizeHeight && newSizeHeight <= self.maxHeight {
+        if oldSize.height != selfSize.height && selfSize.height <= self.maxHeight {
             self.flashScrollIndicators()
-            self.delegates.willChangeHeight(newSizeHeight)
+            self.delegates.willChangeHeight(selfSize.height)
         }
         
-        var frame = self.textView.frame
-        frame.size.height = originalNewSizeHeight
+        var frame = self.bounds
+        frame.size.height = actualTextViewSize.height
         self.textView.frame = frame
         self.contentSize = frame.size
         
         var scrollViewFrame = self.frame
-        scrollViewFrame.size.height = newSizeHeight
+        scrollViewFrame.size.height = selfSize.height
         self.frame = scrollViewFrame
         
         if followBottom {
             self.scrollToBottom()
         }
         
-        self.delegates.didChangeHeight(newSizeHeight)
+        self.delegates.didChangeHeight(selfSize.height)
     }
     
     private func scrollToBottom() {
