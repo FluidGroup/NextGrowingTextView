@@ -137,6 +137,7 @@ public class NextGrowingTextView: UIScrollView {
         }
         
         var frame = self.bounds
+        frame.origin = CGPoint.zero
         frame.size.height = actualTextViewSize.height
         self.textView.frame = frame
         self.contentSize = frame.size
