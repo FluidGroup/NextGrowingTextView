@@ -13,14 +13,58 @@
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS" customClass="View" customModule="NextGrowingTextView_Example" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ckE-F6-idm">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="atN-J5-w3s">
+                                        <rect key="frame" x="329" y="4" width="38" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="0Tx-Ge-BAv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Send"/>
+                                        <connections>
+                                            <action selector="handleSendButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="On1-pV-S3p"/>
+                                        </connections>
+                                    </button>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="jTC-nR-hYx" customClass="NextGrowingTextView" customModule="NextGrowingTextView">
+                                        <rect key="frame" x="8" y="4" width="314" height="36"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="jTC-nR-hYx" secondAttribute="bottom" constant="4" id="2bO-GH-WID"/>
+                                    <constraint firstAttribute="trailing" secondItem="atN-J5-w3s" secondAttribute="trailing" constant="8" id="YJc-pr-5mz"/>
+                                    <constraint firstItem="jTC-nR-hYx" firstAttribute="leading" secondItem="ckE-F6-idm" secondAttribute="leading" constant="8" id="cYG-ik-yA5"/>
+                                    <constraint firstItem="atN-J5-w3s" firstAttribute="leading" secondItem="jTC-nR-hYx" secondAttribute="trailing" constant="7" id="cwv-d8-157"/>
+                                    <constraint firstItem="jTC-nR-hYx" firstAttribute="top" secondItem="ckE-F6-idm" secondAttribute="top" constant="4" id="mMp-Aj-i3w"/>
+                                    <constraint firstAttribute="bottom" secondItem="atN-J5-w3s" secondAttribute="bottom" constant="4" id="sDY-fm-ocO"/>
+                                    <constraint firstItem="jTC-nR-hYx" firstAttribute="leading" secondItem="ckE-F6-idm" secondAttribute="leading" constant="8" id="u1U-9A-s3M"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="0.94977337121963501" green="0.94974493980407715" blue="0.9497610330581665" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ckE-F6-idm" secondAttribute="trailing" id="WoZ-ur-TS5"/>
+                            <constraint firstItem="ckE-F6-idm" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="es3-Ps-3Hh"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="ckE-F6-idm" secondAttribute="bottom" id="yhf-xc-vwH"/>
+                        </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="growingTextView" destination="jTC-nR-hYx" id="y89-BK-DVZ"/>
+                        <outlet property="inputContainerView" destination="ckE-F6-idm" id="66v-W6-5H7"/>
+                        <outlet property="inputViewBottom" destination="yhf-xc-vwH" id="diU-yb-rfe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="374.5" y="312.5"/>
         </scene>
     </scenes>
 </document>
