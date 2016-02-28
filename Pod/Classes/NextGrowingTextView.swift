@@ -153,9 +153,9 @@ public class NextGrowingTextView: UIScrollView {
             selfSize = contentSize
         }
         
-        var scrollViewFrame = self.frame
-        scrollViewFrame.size.height = selfSize.height
-        return scrollViewFrame
+        var frame = self.frame
+        frame.size.height = selfSize.height
+        return frame
     }
     
     private func fitToScrollView() {

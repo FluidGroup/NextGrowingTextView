@@ -25,7 +25,7 @@ import NextGrowingTextView
 class ViewController: UIViewController {
 
     @IBOutlet weak var inputContainerView: UIView!
-    @IBOutlet weak var inputViewBottom: NSLayoutConstraint!
+    @IBOutlet weak var inputContainerViewBottom: NSLayoutConstraint!
     @IBOutlet weak var growingTextView: NextGrowingTextView!
     
     override func viewDidLoad() {
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
     dynamic func keyboardWillChangeFrame(notification: NSNotification) {
         if let newHeight = notification.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size.height {
             
-            self.inputViewBottom.constant = newHeight
+            self.inputContainerViewBottom.constant = newHeight
         }
     }
 
