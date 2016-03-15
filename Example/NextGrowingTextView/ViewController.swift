@@ -19,11 +19,12 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+
 import UIKit
 import NextGrowingTextView
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var inputContainerViewBottom: NSLayoutConstraint!
     @IBOutlet weak var growingTextView: NextGrowingTextView!
@@ -31,27 +32,49 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChangeFrame:", name: UIKeyboardWillChangeFrameNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
         
         self.growingTextView.layer.cornerRadius = 4
         self.growingTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
-    dynamic func keyboardWillChangeFrame(notification: NSNotification) {
-        if let newHeight = notification.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size.height {
-            
-            self.inputContainerViewBottom.constant = newHeight
+    
+    @IBAction func handleSendButton(sender: AnyObject) {
+        self.growingTextView.text = ""
+        self.view.endEditing(true)
+    }
+    
+    
+    func keyboardWillHide(sender: NSNotification) {
+        if let userInfo = sender.userInfo {
+            if let _ = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size.height {
+                //key point 0,
+                self.inputContainerViewBottom.constant =  0
+                //textViewBottomConstraint.constant = keyboardHeight
+                UIView.animateWithDuration(0.25, animations: { () -> Void in self.view.layoutIfNeeded() })
+            }
         }
     }
-
-    @IBAction func handleSendButton(sender: AnyObject) {
-        
-        self.growingTextView.text = ""
+    func keyboardWillShow(sender: NSNotification) {
+        if let userInfo = sender.userInfo {
+            if let keyboardHeight = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size.height {
+                self.inputContainerViewBottom.constant = keyboardHeight
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
     }
 }
 
