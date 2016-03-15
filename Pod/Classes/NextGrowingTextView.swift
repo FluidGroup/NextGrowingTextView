@@ -23,7 +23,13 @@
 import Foundation
 import UIKit
 
+
+// MARK: - NextGrowingTextView: UIScrollView
+
 public class NextGrowingTextView: UIScrollView {
+    
+    
+    // MARK: - Public
     
     public class Delegates {
         public var shouldChangeTextInRange: (range: NSRange, replacementText: String) -> Bool = { _ in true }
@@ -104,6 +110,15 @@ public class NextGrowingTextView: UIScrollView {
     }
   
     // MARK: UIResponder
+    
+    public override var inputView: UIView? {
+        get {
+            return self.textView.inputView
+        }
+        set {
+            self.textView.inputView = newValue
+        }
+    }
     
     public override func becomeFirstResponder() -> Bool {
         return self.textView.becomeFirstResponder()
@@ -220,7 +235,9 @@ public class NextGrowingTextView: UIScrollView {
     private var previousFrame: CGRect = CGRect.zero
 }
 
-// MARK: TextView Properties
+
+// MARK: - TextView Properties
+
 extension NextGrowingTextView {
     
     // MARK: TextView Extension

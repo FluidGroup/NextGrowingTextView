@@ -23,7 +23,11 @@
 import Foundation
 import UIKit
 
+// MARK: - NextGrowingInternalTextView: UITextView
+
 internal class NextGrowingInternalTextView: UITextView {
+    
+    // MARK: - Internal
     
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
@@ -72,6 +76,8 @@ internal class NextGrowingInternalTextView: UITextView {
         let attributedString = self.placeholderAttributedText
         attributedString?.drawInRect(targetRect)
     }
+    
+    // MARK: Private
     
     private var displayPlaceholder: Bool = true {
         didSet {
