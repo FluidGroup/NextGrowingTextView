@@ -63,13 +63,51 @@ growingTextView.delegates.textViewDidChange = { (growingTextView: NextGrowingTex
 iOS 7.0+
 
 ## Installation
+### CocoaPods
 
-NextGrowingTextView is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+> CocoaPods 0.39.0+ is required to build NextGrowingTextView
+
+To integrate NextGrowingTextView into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod "NextGrowingTextView"
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'NextGrowingTextView'
 ```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate NextGrowingTextView into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "muukii/NextGrowingTextView"
+```
+
+Run `carthage update` to build the framework and drag the built `NextGrowingTextView.framework` into your Xcode project.
+
 
 ## Author
 
