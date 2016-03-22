@@ -120,6 +120,10 @@ public class NextGrowingTextView: UIScrollView {
         }
     }
     
+    public override func isFirstResponder() -> Bool {
+        return self.textView.isFirstResponder()
+    }
+    
     public override func becomeFirstResponder() -> Bool {
         return self.textView.becomeFirstResponder()
     }
