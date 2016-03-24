@@ -79,7 +79,7 @@ public class NextGrowingTextView: UIScrollView {
         }
     }
     
-    public var alignsTextToTop = false
+    public var disableAutomaticScrollToBottom = false
     
     public override init(frame: CGRect) {
         let textView = NextGrowingInternalTextView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
@@ -210,7 +210,7 @@ public class NextGrowingTextView: UIScrollView {
     }
     
     private func scrollToBottom() {
-        if !alignsTextToTop {
+        if !disableAutomaticScrollToBottom {
             let offset = self.contentOffset
             self.contentOffset = CGPoint(x: offset.x, y: self.contentSize.height - self.frame.height)
         }
