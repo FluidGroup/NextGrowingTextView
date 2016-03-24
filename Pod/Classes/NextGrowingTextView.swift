@@ -79,6 +79,8 @@ public class NextGrowingTextView: UIScrollView {
         }
     }
     
+    public var alignsTextToTop = false
+    
     public override init(frame: CGRect) {
         let textView = NextGrowingInternalTextView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
         self.textView = textView
@@ -208,8 +210,10 @@ public class NextGrowingTextView: UIScrollView {
     }
     
     private func scrollToBottom() {
-        let offset = self.contentOffset
-        self.contentOffset = CGPoint(x: offset.x, y: self.contentSize.height - self.frame.height)
+        if !alignsTextToTop {
+            let offset = self.contentOffset
+            self.contentOffset = CGPoint(x: offset.x, y: self.contentSize.height - self.frame.height)
+        }
     }
     
     private func simulateHeight(line: Int) -> CGFloat {
