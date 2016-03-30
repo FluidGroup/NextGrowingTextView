@@ -257,6 +257,11 @@ extension NextGrowingTextView {
     
     // MARK: TextView
     
+    public var returnKeyType: UIReturnKeyType {
+        get { return self.textView.returnKeyType }
+        set { self.textView.returnKeyType = newValue }
+    }
+    
     public var text: String! {
         get { return self.textView.text }
         set {
