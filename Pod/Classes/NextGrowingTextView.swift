@@ -313,8 +313,8 @@ extension NextGrowingTextView {
     }
 
     public var typingAttributes: [String : AnyObject] {
-        get { return self.typingAttributes }
-        set { self.typingAttributes = newValue }
+        get { return self.textView.typingAttributes }
+        set { self.textView.typingAttributes = newValue }
     }
 
     public func scrollRangeToVisible(range: NSRange) {
