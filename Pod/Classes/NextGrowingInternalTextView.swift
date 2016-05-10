@@ -71,7 +71,10 @@ internal class NextGrowingInternalTextView: UITextView {
         let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = self.textAlignment
         
-        let targetRect = CGRect(x: 5, y: 8 + self.contentInset.top, width: self.frame.size.width - self.contentInset.left, height: self.frame.size.height - self.contentInset.top)
+        let targetRect = CGRect(x: 5 + self.textContainerInset.left,
+                                y: self.textContainerInset.top,
+                                width: self.frame.size.width - (self.textContainerInset.left + self.textContainerInset.right),
+                                height: self.frame.size.height - (self.textContainerInset.top + self.textContainerInset.bottom))
         
         let attributedString = self.placeholderAttributedText
         attributedString?.drawInRect(targetRect)

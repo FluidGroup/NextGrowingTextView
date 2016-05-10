@@ -154,7 +154,7 @@ public class NextGrowingTextView: UIScrollView {
         self.textView.font = UIFont.systemFontOfSize(16)
         self.textView.backgroundColor = UIColor.clearColor()
         self.addSubview(textView)
-        self.minHeight = frame.height
+        self.minHeight = simulateHeight(0)
         self.maxNumberOfLines = 3
     }
 
@@ -214,6 +214,12 @@ public class NextGrowingTextView: UIScrollView {
             self.contentOffset = CGPoint(x: offset.x, y: self.contentSize.height - self.frame.height)
         }
     }
+    
+    private func updateMinimumAndMaximumHeight() {
+        self.minHeight = simulateHeight(0)
+        self.maxHeight = simulateHeight(self.maxNumberOfLines)
+        self.fitToScrollView()
+    }
 
     private func simulateHeight(line: Int) -> CGFloat {
 
@@ -229,8 +235,7 @@ public class NextGrowingTextView: UIScrollView {
 
         self.textView.text = newText
 
-        let textViewMargin: CGFloat = 16
-        let height = self.measureTextViewSize().height - (textViewMargin + self.textView.contentInset.top + self.textView.contentInset.bottom)
+        let height = self.measureTextViewSize().height
 
         self.textView.text = saveText
         self.textView.hidden = false
@@ -271,7 +276,10 @@ extension NextGrowingTextView {
 
     public var font: UIFont? {
         get { return self.textView.font }
-        set { self.textView.font = newValue }
+        set {
+            self.textView.font = newValue
+            self.updateMinimumAndMaximumHeight()
+        }
     }
 
     public var textColor: UIColor? {
@@ -342,7 +350,10 @@ extension NextGrowingTextView {
 
     public var textContainerInset: UIEdgeInsets {
         get { return self.textView.textContainerInset }
-        set { self.textView.textContainerInset = newValue }
+        set {
+            self.textView.textContainerInset = newValue
+            self.updateMinimumAndMaximumHeight()
+        }
     }
 
     public var layoutManger: NSLayoutManager {
