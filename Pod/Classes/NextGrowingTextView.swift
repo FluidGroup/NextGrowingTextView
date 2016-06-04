@@ -53,8 +53,8 @@ public class NextGrowingTextView: UIScrollView {
             return self._minNumberOfLines
         }
         set {
-            guard newValue > 0 else {
-                self.minHeight = 0
+            guard newValue > 1 else {
+                self.minHeight = 1
                 return
             }
 
@@ -69,8 +69,8 @@ public class NextGrowingTextView: UIScrollView {
         }
         set {
 
-            guard newValue > 0 else {
-                self.maxHeight = 0
+            guard newValue > 1 else {
+                self.maxHeight = 1
                 return
             }
 
@@ -154,7 +154,7 @@ public class NextGrowingTextView: UIScrollView {
         self.textView.font = UIFont.systemFontOfSize(16)
         self.textView.backgroundColor = UIColor.clearColor()
         self.addSubview(textView)
-        self.minHeight = simulateHeight(0)
+        self.minHeight = simulateHeight(1)
         self.maxNumberOfLines = 3
     }
 
@@ -216,7 +216,7 @@ public class NextGrowingTextView: UIScrollView {
     }
     
     private func updateMinimumAndMaximumHeight() {
-        self.minHeight = simulateHeight(0)
+        self.minHeight = simulateHeight(1)
         self.maxHeight = simulateHeight(self.maxNumberOfLines)
         self.fitToScrollView()
     }
@@ -229,7 +229,7 @@ public class NextGrowingTextView: UIScrollView {
         self.textView.delegate = nil
         self.textView.hidden = true
 
-        for _ in 0..<line {
+        for _ in 0..<line-1 {
             newText += "\n|W|"
         }
 
