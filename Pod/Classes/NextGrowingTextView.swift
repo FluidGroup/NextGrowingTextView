@@ -315,7 +315,7 @@ extension NextGrowingTextView {
     public var attributedText: NSAttributedString! {
         get { return self.textView.attributedText }
         set {
-            self.attributedText = newValue
+            self.textView.attributedText = newValue
             self.fitToScrollView()
         }
     }
