@@ -375,18 +375,17 @@ extension NextGrowingTextView {
 extension NextGrowingTextView {
 
     override public var indicatorStyle: UIScrollViewIndicatorStyle {
-        get { return self.textView.indicatorStyle }
-        set { self.textView.indicatorStyle = newValue }
+        
+        didSet { self.textView.indicatorStyle =  self.indicatorStyle }
     }
 
     override public var showsHorizontalScrollIndicator: Bool {
-        get { return self.textView.showsHorizontalScrollIndicator }
-        set { self.textView.showsHorizontalScrollIndicator = newValue }
+        didSet { self.textView.showsHorizontalScrollIndicator = self.showsHorizontalScrollIndicator }
     }
 
     override public var showsVerticalScrollIndicator: Bool {
-        get { return self.textView.showsVerticalScrollIndicator }
-        set { self.textView.showsVerticalScrollIndicator = newValue }
+
+        didSet { self.textView.showsVerticalScrollIndicator = self.showsVerticalScrollIndicator }
     }
 
 }
