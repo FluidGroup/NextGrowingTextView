@@ -370,27 +370,6 @@ extension NextGrowingTextView {
     }
 }
 
-// MARK: - UIScrollView Properties
-
-extension NextGrowingTextView {
-
-    override public var indicatorStyle: UIScrollViewIndicatorStyle {
-        get { return self.textView.indicatorStyle }
-        set { self.textView.indicatorStyle = newValue }
-    }
-
-    override public var showsHorizontalScrollIndicator: Bool {
-        get { return self.textView.showsHorizontalScrollIndicator }
-        set { self.textView.showsHorizontalScrollIndicator = newValue }
-    }
-
-    override public var showsVerticalScrollIndicator: Bool {
-        get { return self.textView.showsVerticalScrollIndicator }
-        set { self.textView.showsVerticalScrollIndicator = newValue }
-    }
-
-}
-
 extension NextGrowingTextView: UITextViewDelegate {
 
     public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
