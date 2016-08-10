@@ -368,6 +368,11 @@ extension NextGrowingTextView {
         get { return self.textView.linkTextAttributes }
         set { self.textView.linkTextAttributes = newValue }
     }
+    
+    public var keyboardType: UIKeyboardType {
+        get { return self.textView.keyboardType }
+        set { self.textView.keyboardType = newValue }
+    }
 }
 
 extension NextGrowingTextView: UITextViewDelegate {
