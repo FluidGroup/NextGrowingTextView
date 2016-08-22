@@ -377,6 +377,11 @@ extension NextGrowingTextView {
         get { return self.textView.keyboardType }
         set { self.textView.keyboardType = newValue }
     }
+    
+    public var autocorrectionType : UITextAutocorrectionType {
+        get { return self.textView.autocorrectionType }
+        set { self.textView.autocorrectionType = newValue }
+    }
 }
 
 extension NextGrowingTextView: UITextViewDelegate {
