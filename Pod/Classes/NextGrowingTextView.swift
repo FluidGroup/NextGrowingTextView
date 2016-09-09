@@ -26,229 +26,227 @@ import UIKit
 
 // MARK: - NextGrowingTextView: UIScrollView
 
-public class NextGrowingTextView: UIScrollView {
+open class NextGrowingTextView: UIScrollView {
 
 
     // MARK: - Public
 
     public class Delegates {
-        public var shouldChangeTextInRange: (range: NSRange, replacementText: String) -> Bool = { _ in true }
-        public var shouldInteractWithURL: (URL: NSURL, inRange: NSRange) -> Bool = { _ in true }
-        public var shouldInteractWithTextAttachment: (textAttachment: NSTextAttachment, inRange: NSRange) -> Bool = { _ in true }
-        public var textViewDidBeginEditing: (NextGrowingTextView) -> Void = { _ in }
-        public var textViewDidChangeSelection: (NextGrowingTextView) -> Void = { _ in }
-        public var textViewDidEndEditing: (NextGrowingTextView) -> Void = { _ in }
-        public var textViewShouldBeginEditing: (NextGrowingTextView) -> Bool = { _ in true }
-        public var textViewShouldEndEditing: (NextGrowingTextView) -> Bool = { _ in true }
-        public var textViewDidChange: (NextGrowingTextView) -> Void = { _ in }
+        open var shouldChangeTextInRange: (_ range: NSRange, _ replacementText: String) -> Bool = { _ in true }
+        open var shouldInteractWithURL: (_ URL: URL, _ inRange: NSRange) -> Bool = { _ in true }
+        open var shouldInteractWithTextAttachment: (_ textAttachment: NSTextAttachment, _ inRange: NSRange) -> Bool = { _ in true }
+        open var textViewDidBeginEditing: (NextGrowingTextView) -> Void = { _ in }
+        open var textViewDidChangeSelection: (NextGrowingTextView) -> Void = { _ in }
+        open var textViewDidEndEditing: (NextGrowingTextView) -> Void = { _ in }
+        open var textViewShouldBeginEditing: (NextGrowingTextView) -> Bool = { _ in true }
+        open var textViewShouldEndEditing: (NextGrowingTextView) -> Bool = { _ in true }
+        open var textViewDidChange: (NextGrowingTextView) -> Void = { _ in }
 
-        public var willChangeHeight: (CGFloat) -> Void = { _ in }
-        public var didChangeHeight: (CGFloat) -> Void = { _ in }
+        open var willChangeHeight: (CGFloat) -> Void = { _ in }
+        open var didChangeHeight: (CGFloat) -> Void = { _ in }
     }
 
-    public var delegates = Delegates()
+    open var delegates = Delegates()
 
-    public var minNumberOfLines: Int {
+    open var minNumberOfLines: Int {
         get {
-            return self._minNumberOfLines
+            return _minNumberOfLines
         }
         set {
             guard newValue > 1 else {
-                self.minHeight = 1
+                minHeight = 1
                 return
             }
 
-            self.minHeight = self.simulateHeight(newValue)
-            self._minNumberOfLines = newValue
+            minHeight = simulateHeight(newValue)
+            _minNumberOfLines = newValue
         }
     }
 
-    public var maxNumberOfLines: Int {
+    open var maxNumberOfLines: Int {
         get {
-            return self._maxNumberOfLines
+            return _maxNumberOfLines
         }
         set {
 
             guard newValue > 1 else {
-                self.maxHeight = 1
+                maxHeight = 1
                 return
             }
 
-            self.maxHeight = self.simulateHeight(newValue)
-            self._maxNumberOfLines = newValue
+            maxHeight = simulateHeight(newValue)
+            _maxNumberOfLines = newValue
         }
     }
 
-    public var disableAutomaticScrollToBottom = false
+    open var disableAutomaticScrollToBottom = false
 
     public override init(frame: CGRect) {
-        let textView = NextGrowingInternalTextView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
-        self.textView = textView
-        self.previousFrame = frame
+        textView = NextGrowingInternalTextView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
+        previousFrame = frame
 
         super.init(frame: frame)
 
-        self.setup()
+        setup()
     }
 
     public required init?(coder aDecoder: NSCoder) {
 
-        let textView = NextGrowingInternalTextView(frame: CGRect.zero)
-        self.textView = textView
+        textView = NextGrowingInternalTextView(frame: CGRect.zero)
 
         super.init(coder: aDecoder)
 
-        textView.frame = self.bounds
-        self.previousFrame = self.frame
-        self.setup()
+        textView.frame = bounds
+        previousFrame = frame
+        setup()
     }
 
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
-        if self.previousFrame.width != self.bounds.width {
-            self.previousFrame = self.frame
-            self.fitToScrollView()
+        if previousFrame.width != bounds.width {
+            previousFrame = frame
+            fitToScrollView()
         }
     }
 
     // MARK: UIResponder
 
-    public override var inputView: UIView? {
+    open override var inputView: UIView? {
         get {
-            return self.textView.inputView
+            return textView.inputView
         }
         set {
-            self.textView.inputView = newValue
+            textView.inputView = newValue
         }
     }
 
-    public override func isFirstResponder() -> Bool {
-        return self.textView.isFirstResponder()
+    open override var isFirstResponder : Bool {
+        return textView.isFirstResponder
     }
 
-    public override func becomeFirstResponder() -> Bool {
-        return self.textView.becomeFirstResponder()
+    open override func becomeFirstResponder() -> Bool {
+        return textView.becomeFirstResponder()
     }
 
-    public override func resignFirstResponder() -> Bool {
-        return self.textView.resignFirstResponder()
+    open override func resignFirstResponder() -> Bool {
+        return textView.resignFirstResponder()
     }
 
-    public override func intrinsicContentSize() -> CGSize {
-        return self.measureFrame(self.measureTextViewSize()).size
+    open override var intrinsicContentSize : CGSize {
+        return measureFrame(measureTextViewSize()).size
     }
     
-    public override func reloadInputViews() {
-        return self.textView.reloadInputViews()
+    open override func reloadInputViews() {
+        return textView.reloadInputViews()
     }
 
     // MARK: Private
 
-    private let textView: NextGrowingInternalTextView
+    fileprivate let textView: NextGrowingInternalTextView
 
-    private var _maxNumberOfLines: Int = 0
-    private var _minNumberOfLines: Int = 0
-    private var maxHeight: CGFloat = 0
-    private var minHeight: CGFloat = 0
+    fileprivate var _maxNumberOfLines: Int = 0
+    fileprivate var _minNumberOfLines: Int = 0
+    fileprivate var maxHeight: CGFloat = 0
+    fileprivate var minHeight: CGFloat = 0
 
-    private func setup() {
+    fileprivate func setup() {
 
-        self.textView.delegate = self
-        self.textView.scrollEnabled = false
-        self.textView.font = UIFont.systemFontOfSize(16)
-        self.textView.backgroundColor = UIColor.clearColor()
-        self.addSubview(textView)
-        self.minHeight = simulateHeight(1)
-        self.maxNumberOfLines = 3
+        textView.delegate = self
+        textView.isScrollEnabled = false
+        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.backgroundColor = UIColor.clear
+        addSubview(textView)
+        minHeight = simulateHeight(1)
+        maxNumberOfLines = 3
     }
 
-    private func measureTextViewSize() -> CGSize {
-        return textView.sizeThatFits(CGSize(width: self.bounds.width, height: CGFloat.infinity))
+    fileprivate func measureTextViewSize() -> CGSize {
+        return textView.sizeThatFits(CGSize(width: bounds.width, height: CGFloat.infinity))
     }
 
-    private func measureFrame(contentSize: CGSize) -> CGRect {
+    fileprivate func measureFrame(_ contentSize: CGSize) -> CGRect {
 
         let selfSize: CGSize
 
-        if contentSize.height < self.minHeight || !self.textView.hasText() {
-            selfSize = CGSize(width: contentSize.width, height: self.minHeight)
-        } else if self.maxHeight > 0 && contentSize.height > self.maxHeight {
-            selfSize = CGSize(width: contentSize.width, height: self.maxHeight)
+        if contentSize.height < minHeight || !textView.hasText {
+            selfSize = CGSize(width: contentSize.width, height: minHeight)
+        } else if maxHeight > 0 && contentSize.height > maxHeight {
+            selfSize = CGSize(width: contentSize.width, height: maxHeight)
         } else {
             selfSize = contentSize
         }
 
-        var frame = self.frame
-        frame.size.height = selfSize.height
-        return frame
+        var _frame = frame
+        _frame.size.height = selfSize.height
+        return _frame
     }
 
-    private func fitToScrollView() {
+    fileprivate func fitToScrollView() {
 
-        let scrollToBottom = self.contentOffset.y == self.contentSize.height - self.frame.height
-        let actualTextViewSize = self.measureTextViewSize()
-        let oldScrollViewFrame = self.frame
+        let shouldScrollToBottom = contentOffset.y == contentSize.height - frame.height
+        let actualTextViewSize = measureTextViewSize()
+        let oldScrollViewFrame = frame
 
-        var frame = self.bounds
-        frame.origin = CGPoint.zero
-        frame.size.height = actualTextViewSize.height
-        self.textView.frame = frame
-        self.contentSize = frame.size
+        var _frame = bounds
+        _frame.origin = CGPoint.zero
+        _frame.size.height = actualTextViewSize.height
+        textView.frame = _frame
+        contentSize = _frame.size
 
-        let newScrollViewFrame = self.measureFrame(actualTextViewSize)
+        let newScrollViewFrame = measureFrame(actualTextViewSize)
 
-        if oldScrollViewFrame.height != newScrollViewFrame.height && newScrollViewFrame.height <= self.maxHeight {
-            self.flashScrollIndicators()
-            self.delegates.willChangeHeight(newScrollViewFrame.height)
+        if oldScrollViewFrame.height != newScrollViewFrame.height && newScrollViewFrame.height <= maxHeight {
+            flashScrollIndicators()
+            delegates.willChangeHeight(newScrollViewFrame.height)
         }
 
-        self.frame = newScrollViewFrame
+        frame = newScrollViewFrame
 
-        if scrollToBottom {
-            self.scrollToBottom()
+        if shouldScrollToBottom {
+            scrollToBottom()
         }
         
-        self.invalidateIntrinsicContentSize()
-        self.delegates.didChangeHeight(self.frame.height)
+        invalidateIntrinsicContentSize()
+        delegates.didChangeHeight(frame.height)
     }
 
-    private func scrollToBottom() {
+    fileprivate func scrollToBottom() {
         if !disableAutomaticScrollToBottom {
-            let offset = self.contentOffset
-            self.contentOffset = CGPoint(x: offset.x, y: self.contentSize.height - self.frame.height)
+            let offset = contentOffset
+            contentOffset = CGPoint(x: offset.x, y: contentSize.height - frame.height)
         }
     }
     
-    private func updateMinimumAndMaximumHeight() {
-        self.minHeight = simulateHeight(1)
-        self.maxHeight = simulateHeight(self.maxNumberOfLines)
-        self.fitToScrollView()
+    fileprivate func updateMinimumAndMaximumHeight() {
+        minHeight = simulateHeight(1)
+        maxHeight = simulateHeight(maxNumberOfLines)
+        fitToScrollView()
     }
 
-    private func simulateHeight(line: Int) -> CGFloat {
+    fileprivate func simulateHeight(_ line: Int) -> CGFloat {
 
-        let saveText = self.textView.text
+        let saveText = textView.text
         var newText = "-"
 
-        self.textView.delegate = nil
-        self.textView.hidden = true
+        textView.delegate = nil
+        textView.isHidden = true
 
         for _ in 0..<line-1 {
             newText += "\n|W|"
         }
 
-        self.textView.text = newText
+        textView.text = newText
 
-        let height = self.measureTextViewSize().height
+        let height = measureTextViewSize().height
 
-        self.textView.text = saveText
-        self.textView.hidden = false
-        self.textView.delegate = self
+        textView.text = saveText
+        textView.isHidden = false
+        textView.delegate = self
 
         return height
     }
 
-    private var previousFrame: CGRect = CGRect.zero
+    fileprivate var previousFrame: CGRect = CGRect.zero
 }
 
 
@@ -259,169 +257,169 @@ extension NextGrowingTextView {
     // MARK: TextView Extension
 
     public var placeholderAttributedText: NSAttributedString? {
-        get {return self.textView.placeholderAttributedText }
-        set {self.textView.placeholderAttributedText = newValue }
+        get {return textView.placeholderAttributedText }
+        set {textView.placeholderAttributedText = newValue }
     }
 
     // MARK: TextView
 
     public var returnKeyType: UIReturnKeyType {
-        get { return self.textView.returnKeyType }
-        set { self.textView.returnKeyType = newValue }
+        get { return textView.returnKeyType }
+        set { textView.returnKeyType = newValue }
     }
 
     public var text: String! {
-        get { return self.textView.text }
+        get { return textView.text }
         set {
-            self.textView.text = newValue
-            self.fitToScrollView()
+            textView.text = newValue
+            fitToScrollView()
         }
     }
 
     public var font: UIFont? {
-        get { return self.textView.font }
+        get { return textView.font }
         set {
-            self.textView.font = newValue
-            self.updateMinimumAndMaximumHeight()
+            textView.font = newValue
+            updateMinimumAndMaximumHeight()
         }
     }
 
     public var textColor: UIColor? {
-        get { return self.textView.textColor }
-        set { self.textView.textColor = newValue }
+        get { return textView.textColor }
+        set { textView.textColor = newValue }
     }
 
     public var textAlignment: NSTextAlignment {
-        get { return self.textView.textAlignment }
-        set { self.textView.textAlignment = newValue }
+        get { return textView.textAlignment }
+        set { textView.textAlignment = newValue }
     }
 
     public var selectedRange: NSRange {
-        get { return self.textView.selectedRange }
-        set { self.textView.selectedRange = newValue }
+        get { return textView.selectedRange }
+        set { textView.selectedRange = newValue }
     }
 
     public var dataDetectorTypes: UIDataDetectorTypes {
-        get { return self.textView.dataDetectorTypes }
-        set { self.textView.dataDetectorTypes = newValue }
+        get { return textView.dataDetectorTypes }
+        set { textView.dataDetectorTypes = newValue }
     }
 
     public var selectable: Bool {
-        get { return self.textView.selectable }
-        set { self.textView.selectable = newValue }
+        get { return textView.isSelectable }
+        set { textView.isSelectable = newValue }
     }
 
     public var allowsEditingTextAttributes: Bool {
-        get { return self.allowsEditingTextAttributes }
-        set { self.allowsEditingTextAttributes = newValue }
+        get { return textView.allowsEditingTextAttributes }
+        set { textView.allowsEditingTextAttributes = newValue }
     }
 
     public var attributedText: NSAttributedString! {
-        get { return self.textView.attributedText }
+        get { return textView.attributedText }
         set {
-            self.textView.attributedText = newValue
-            self.fitToScrollView()
+            textView.attributedText = newValue
+            fitToScrollView()
         }
     }
 
     public var typingAttributes: [String : AnyObject] {
-        get { return self.textView.typingAttributes }
-        set { self.textView.typingAttributes = newValue }
+        get { return textView.typingAttributes as [String : AnyObject] }
+        set { textView.typingAttributes = newValue }
     }
 
-    public func scrollRangeToVisible(range: NSRange) {
-        self.textView.scrollRangeToVisible(range)
+    public func scrollRangeToVisible(_ range: NSRange) {
+        textView.scrollRangeToVisible(range)
     }
 
     public var textViewInputView: UIView? {
-        get { return self.textView.inputView }
-        set { self.textView.inputView = newValue }
+        get { return textView.inputView }
+        set { textView.inputView = newValue }
     }
 
     public var textViewInputAccessoryView: UIView? {
-        get { return self.textView.inputAccessoryView }
-        set { self.textView.inputAccessoryView = newValue }
+        get { return textView.inputAccessoryView }
+        set { textView.inputAccessoryView = newValue }
     }
 
     public var clearsOnInsertion: Bool {
-        get { return self.textView.clearsOnInsertion }
-        set { self.textView.clearsOnInsertion = newValue }
+        get { return textView.clearsOnInsertion }
+        set { textView.clearsOnInsertion = newValue }
     }
 
     public var textContainer: NSTextContainer {
-        return self.textView.textContainer
+        return textView.textContainer
     }
 
     public var textContainerInset: UIEdgeInsets {
-        get { return self.textView.textContainerInset }
+        get { return textView.textContainerInset }
         set {
-            self.textView.textContainerInset = newValue
-            self.updateMinimumAndMaximumHeight()
+            textView.textContainerInset = newValue
+            updateMinimumAndMaximumHeight()
         }
     }
 
     public var layoutManger: NSLayoutManager {
-        return self.textView.layoutManager
+        return textView.layoutManager
     }
 
     public var textStorage: NSTextStorage {
-        return self.textView.textStorage
+        return textView.textStorage
     }
 
     public var linkTextAttributes: [String : AnyObject]! {
-        get { return self.textView.linkTextAttributes }
-        set { self.textView.linkTextAttributes = newValue }
+        get { return textView.linkTextAttributes as [String : AnyObject]! }
+        set { textView.linkTextAttributes = newValue }
     }
     
     public var keyboardType: UIKeyboardType {
-        get { return self.textView.keyboardType }
-        set { self.textView.keyboardType = newValue }
+        get { return textView.keyboardType }
+        set { textView.keyboardType = newValue }
     }
     
     public var autocorrectionType : UITextAutocorrectionType {
-        get { return self.textView.autocorrectionType }
-        set { self.textView.autocorrectionType = newValue }
+        get { return textView.autocorrectionType }
+        set { textView.autocorrectionType = newValue }
     }
 }
 
 extension NextGrowingTextView: UITextViewDelegate {
 
-    public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        return self.delegates.shouldChangeTextInRange(range: range, replacementText: text)
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return delegates.shouldChangeTextInRange(range, text)
     }
 
-    public func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
-        return self.delegates.shouldInteractWithURL(URL: URL, inRange: characterRange)
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        return delegates.shouldInteractWithURL(URL, characterRange)
     }
 
-    public func textView(textView: UITextView, shouldInteractWithTextAttachment textAttachment: NSTextAttachment, inRange characterRange: NSRange) -> Bool {
-        return self.delegates.shouldInteractWithTextAttachment(textAttachment: textAttachment, inRange: characterRange)
+    public func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
+        return delegates.shouldInteractWithTextAttachment(textAttachment, characterRange)
     }
 
-    public func textViewDidBeginEditing(textView: UITextView) {
-        self.delegates.textViewDidBeginEditing(self)
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        delegates.textViewDidBeginEditing(self)
     }
 
-    public func textViewDidChangeSelection(textView: UITextView) {
-        self.delegates.textViewDidChangeSelection(self)
+    public func textViewDidChangeSelection(_ textView: UITextView) {
+        delegates.textViewDidChangeSelection(self)
     }
 
-    public func textViewDidEndEditing(textView: UITextView) {
-        self.delegates.textViewDidEndEditing(self)
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        delegates.textViewDidEndEditing(self)
     }
 
-    public func textViewShouldBeginEditing(textView: UITextView) -> Bool {
-        return self.delegates.textViewShouldBeginEditing(self)
+    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return delegates.textViewShouldBeginEditing(self)
     }
 
-    public func textViewShouldEndEditing(textView: UITextView) -> Bool {
-        return self.delegates.textViewShouldEndEditing(self)
+    public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        return delegates.textViewShouldEndEditing(self)
     }
 
-    public func textViewDidChange(textView: UITextView) {
+    public func textViewDidChange(_ textView: UITextView) {
 
-        self.delegates.textViewDidChange(self)
+        delegates.textViewDidChange(self)
 
-        self.fitToScrollView()
+        fitToScrollView()
     }
 }
