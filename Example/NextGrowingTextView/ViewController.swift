@@ -36,15 +36,16 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-       
-        growingTextView.layer.cornerRadius = 4
-        growingTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        growingTextView.textContainerInset = UIEdgeInsets(top: 16, left: 0, bottom: 4, right: 0)
-        growingTextView.placeholderAttributedText = NSAttributedString(string: "Placeholder text",
-                                                                            attributes: [NSFontAttributeName: growingTextView.font!,
+        
+        self.growingTextView.layer.cornerRadius = 4
+        self.growingTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        self.growingTextView.textContainerInset = UIEdgeInsets(top: 16, left: 0, bottom: 4, right: 0)
+        self.growingTextView.placeholderAttributedText = NSAttributedString(string: "Placeholder text",
+                                                                            attributes: [NSFontAttributeName: self.growingTextView.font!,
                                                                                          NSForegroundColorAttributeName: UIColor.gray
             ]
         )
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -52,30 +53,35 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
+        self.view.endEditing(true)
     }
     
+    
     @IBAction func handleSendButton(_ sender: AnyObject) {
-        growingTextView.text = ""
-        view.endEditing(true)
+        self.growingTextView.text = ""
+        self.view.endEditing(true)
     }
     
     
     func keyboardWillHide(_ sender: Notification) {
-        
-        //key point 0,
-        inputContainerViewBottom.constant =  0
-        //textViewBottomConstraint.constant = keyboardHeight
-        UIView.animate(withDuration: 0.25, animations: { () -> Void in self.view.layoutIfNeeded() })
+        if let userInfo = (sender as NSNotification).userInfo {
+            if let _ = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
+                //key point 0,
+                self.inputContainerViewBottom.constant =  0
+                //textViewBottomConstraint.constant = keyboardHeight
+                UIView.animate(withDuration: 0.25, animations: { () -> Void in self.view.layoutIfNeeded() })
+            }
+        }
     }
     func keyboardWillShow(_ sender: Notification) {
-        guard let keyboardHeight = (sender.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else {
-            return
-        }
-        inputContainerViewBottom.constant = keyboardHeight
-        UIView.animate(withDuration: 0.25, animations: { () -> Void in
-            self.view.layoutIfNeeded()
-        })
+        if let userInfo = (sender as NSNotification).userInfo {
+            if let keyboardHeight = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
+                self.inputContainerViewBottom.constant = keyboardHeight
+                UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                    self.view.layoutIfNeeded()
+                })
+            }
+        } 
     }
 }
 
