@@ -49,7 +49,7 @@ internal class NextGrowingInternalTextView: UITextView {
         }
     }
     
-    var placeholderAttributedText: AttributedString? {
+    var placeholderAttributedText: NSAttributedString? {
         didSet {
             self.setNeedsDisplay()
         }
@@ -82,7 +82,7 @@ internal class NextGrowingInternalTextView: UITextView {
     
     // MARK: Private
     
-    private var displayPlaceholder: Bool = true {
+    fileprivate var displayPlaceholder: Bool = true {
         didSet {
             if oldValue != self.displayPlaceholder {
                 self.setNeedsDisplay()
@@ -90,12 +90,12 @@ internal class NextGrowingInternalTextView: UITextView {
         }
     }
     
-    private dynamic func textDidChangeNotification(_ notification: Notification) {
+    fileprivate dynamic func textDidChangeNotification(_ notification: Notification) {
         
         self.updatePlaceholder()
     }
     
-    private func updatePlaceholder() {
+    fileprivate func updatePlaceholder() {
         self.displayPlaceholder = self.text.characters.count == 0
     }
 }
