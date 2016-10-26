@@ -1,6 +1,0 @@
-framework module NextGrowingTextView {
-  umbrella header "NextGrowingTextView-umbrella.h"
-
-  export *
-  module * { export * }
-}

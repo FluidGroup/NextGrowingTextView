@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FE602950F42902FC077C03F07D80BD22"
+               BlueprintIdentifier = "4BDB87E41DC0423F00E70D5B"
                BuildableName = "NextGrowingTextView.framework"
                BlueprintName = "NextGrowingTextView"
-               ReferencedContainer = "container:Pods.xcodeproj">
+               ReferencedContainer = "container:NextGrowingTextView.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,10 +45,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FE602950F42902FC077C03F07D80BD22"
+            BlueprintIdentifier = "4BDB87E41DC0423F00E70D5B"
             BuildableName = "NextGrowingTextView.framework"
             BlueprintName = "NextGrowingTextView"
-            ReferencedContainer = "container:Pods.xcodeproj">
+            ReferencedContainer = "container:NextGrowingTextView.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,6 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4BDB87E41DC0423F00E70D5B"
+            BuildableName = "NextGrowingTextView.framework"
+            BlueprintName = "NextGrowingTextView"
+            ReferencedContainer = "container:NextGrowingTextView.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
