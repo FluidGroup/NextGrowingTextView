@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "NextGrowingTextView"
-  s.version          = "0.8.2"
+  s.version          = "0.8.3"
   s.summary          = "The next in the generations of 'growing textviews' optimized for iOS 7 and above."
   s.homepage         = "https://github.com/muukii/NextGrowingTextView"
   s.license          = 'MIT'
