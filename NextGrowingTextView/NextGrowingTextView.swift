@@ -135,6 +135,11 @@ open class NextGrowingTextView: UIScrollView {
     open override var intrinsicContentSize: CGSize {
         return self.measureFrame(self.measureTextViewSize()).size
     }
+    
+    open override func reloadInputViews() {
+        super.reloadInputViews()
+        textView.reloadInputViews()
+    }
 
     // MARK: Private
 
