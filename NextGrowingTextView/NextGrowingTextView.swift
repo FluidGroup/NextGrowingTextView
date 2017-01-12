@@ -336,6 +336,11 @@ extension NextGrowingTextView {
         get { return textView.inputView }
         set { textView.inputView = newValue }
     }
+    
+    public var keyboardType: UIKeyboardType {
+        get { return textView.keyboardType }
+        set { textView.keyboardType = newValue }
+    }
 
     public var textViewInputAccessoryView: UIView? {
         get { return textView.inputAccessoryView }
