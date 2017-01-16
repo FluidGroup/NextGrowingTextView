@@ -268,6 +268,21 @@ extension NextGrowingTextView {
         get { return textView.returnKeyType }
         set { textView.returnKeyType = newValue }
     }
+    
+    public var spellCheckingType: UITextSpellCheckingType {
+        get { return textView.spellCheckingType }
+        set { textView.spellCheckingType = newValue }
+    }
+    
+    public var autocorrectionType: UITextAutocorrectionType {
+        get { return textView.autocorrectionType }
+        set { textView.autocorrectionType = newValue }
+    }
+    
+    public var autocapitalizationType: UITextAutocapitalizationType {
+        get { return textView.autocapitalizationType }
+        set { textView.autocapitalizationType = newValue }
+    }
 
     public var text: String! {
         get { return textView.text }
