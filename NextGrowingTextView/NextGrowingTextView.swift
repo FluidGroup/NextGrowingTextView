@@ -338,8 +338,8 @@ extension NextGrowingTextView {
         }
     }
 
-    public var typingAttributes: [String : AnyObject] {
-        get { return self.textView.typingAttributes as [String : AnyObject] }
+    public var typingAttributes: [String : Any] {
+        get { return self.textView.typingAttributes }
         set { self.textView.typingAttributes = newValue }
     }
 
@@ -350,6 +350,11 @@ extension NextGrowingTextView {
     public var textViewInputView: UIView? {
         get { return textView.inputView }
         set { textView.inputView = newValue }
+    }
+    
+    public var keyboardType: UIKeyboardType {
+        get { return textView.keyboardType }
+        set { textView.keyboardType = newValue }
     }
 
     public var textViewInputAccessoryView: UIView? {
@@ -382,8 +387,8 @@ extension NextGrowingTextView {
         return textView.textStorage
     }
 
-    public var linkTextAttributes: [String : AnyObject]! {
-        get { return self.textView.linkTextAttributes as [String : AnyObject]! }
+    public var linkTextAttributes: [String : Any]! {
+        get { return self.textView.linkTextAttributes}
         set { self.textView.linkTextAttributes = newValue }
     }
 }
