@@ -23,17 +23,18 @@
 import Foundation
 import UIKit
 
-
 // MARK: - NextGrowingTextView: UIScrollView
 
 open class NextGrowingTextView: UIScrollView {
-
-  // MARK: - Public
-
+  
+  // MARK: - Nested types
+  
   open class Delegates {
     open var willChangeHeight: (CGFloat) -> Void = { _ in }
     open var didChangeHeight: (CGFloat) -> Void = { _ in }
   }
+
+  // MARK: - Properties
 
   open var delegates = Delegates()
 
@@ -47,11 +48,11 @@ open class NextGrowingTextView: UIScrollView {
     }
     set {
       guard newValue > 1 else {
-        minHeight = 1
+        _minHeight = 1
         return
       }
 
-      minHeight = simulateHeight(newValue)
+      _minHeight = simulateHeight(newValue)
       _minNumberOfLines = newValue
     }
   }
@@ -63,20 +64,60 @@ open class NextGrowingTextView: UIScrollView {
     set {
 
       guard newValue > 1 else {
-        maxHeight = 1
+        _maxHeight = 1
         return
       }
 
-      maxHeight = simulateHeight(newValue)
+      _maxHeight = simulateHeight(newValue)
       _maxNumberOfLines = newValue
     }
   }
 
   open var disableAutomaticScrollToBottom = false
+  
+  open var placeholderAttributedText: NSAttributedString? {
+    get { return _textView.placeholderAttributedText }
+    set { _textView.placeholderAttributedText = newValue }
+  }
+  
+  open override var inputView: UIView? {
+    get {
+      return _textView.inputView
+    }
+    set {
+      _textView.inputView = newValue
+    }
+  }
+  
+  open override var isFirstResponder: Bool {
+    return _textView.isFirstResponder
+  }
+  
+  open override func becomeFirstResponder() -> Bool {
+    return _textView.becomeFirstResponder()
+  }
+  
+  open override func resignFirstResponder() -> Bool {
+    return _textView.resignFirstResponder()
+  }
+  
+  open override var intrinsicContentSize: CGSize {
+    return measureFrame(measureTextViewSize()).size
+  }
+  
+  private let _textView: NextGrowingInternalTextView
+  private var _maxNumberOfLines: Int = 0
+  private var _minNumberOfLines: Int = 0
+  private var _maxHeight: CGFloat = 0
+  private var _minHeight: CGFloat = 0
+  private var _previousFrame: CGRect = CGRect.zero
+
+  // MARK: - Initializers
 
   public override init(frame: CGRect) {
+    
     _textView = NextGrowingInternalTextView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
-    previousFrame = frame
+    _previousFrame = frame
 
     super.init(frame: frame)
 
@@ -90,85 +131,53 @@ open class NextGrowingTextView: UIScrollView {
     super.init(coder: aDecoder)
 
     _textView.frame = bounds
-    previousFrame = frame
+    _previousFrame = frame
     setup()
   }
+  
+  // MARK: - Functions
 
   open override func layoutSubviews() {
     super.layoutSubviews()
-    if previousFrame.width != bounds.width {
-      previousFrame = frame
+    if _previousFrame.width != bounds.width {
+      _previousFrame = frame
       fitToScrollView()
     }
   }
 
   // MARK: UIResponder
-
-  open override var inputView: UIView? {
-    get {
-      return _textView.inputView
-    }
-    set {
-      _textView.inputView = newValue
-    }
-  }
-
-  open override var isFirstResponder: Bool {
-    return self._textView.isFirstResponder
-  }
-
-  open override func becomeFirstResponder() -> Bool {
-    return self._textView.becomeFirstResponder()
-  }
-
-  open override func resignFirstResponder() -> Bool {
-    return self._textView.resignFirstResponder()
-  }
-
-  open override var intrinsicContentSize: CGSize {
-    return self.measureFrame(self.measureTextViewSize()).size
-  }
-
+ 
   open override func reloadInputViews() {
     super.reloadInputViews()
     _textView.reloadInputViews()
   }
 
-  // MARK: Private
+  private func setup() {
 
-  fileprivate let _textView: NextGrowingInternalTextView
-
-  fileprivate var _maxNumberOfLines: Int = 0
-  fileprivate var _minNumberOfLines: Int = 0
-  fileprivate var maxHeight: CGFloat = 0
-  fileprivate var minHeight: CGFloat = 0
-
-  fileprivate func setup() {
-
-    self._textView.isScrollEnabled = false
-    self._textView.font = UIFont.systemFont(ofSize: 16)
-    self._textView.backgroundColor = UIColor.clear
-    self.addSubview(_textView)
-    self.minHeight = simulateHeight(1)
-    self.maxNumberOfLines = 3
+    _textView.isScrollEnabled = false
+    _textView.font = UIFont.systemFont(ofSize: 16)
+    _textView.backgroundColor = UIColor.clear
+    addSubview(_textView)
+    _minHeight = simulateHeight(1)
+    maxNumberOfLines = 3
 
     _textView.didChange = { [weak self] in
       self?.fitToScrollView()
     }
   }
 
-  fileprivate func measureTextViewSize() -> CGSize {
+  private func measureTextViewSize() -> CGSize {
     return _textView.sizeThatFits(CGSize(width: self.bounds.width, height: CGFloat.infinity))
   }
 
-  fileprivate func measureFrame(_ contentSize: CGSize) -> CGRect {
+  private func measureFrame(_ contentSize: CGSize) -> CGRect {
 
     let selfSize: CGSize
 
-    if contentSize.height < self.minHeight || !self._textView.hasText {
-      selfSize = CGSize(width: contentSize.width, height: self.minHeight)
-    } else if self.maxHeight > 0 && contentSize.height > self.maxHeight {
-      selfSize = CGSize(width: contentSize.width, height: self.maxHeight)
+    if contentSize.height < _minHeight || !_textView.hasText {
+      selfSize = CGSize(width: contentSize.width, height: _minHeight)
+    } else if _maxHeight > 0 && contentSize.height > _maxHeight {
+      selfSize = CGSize(width: contentSize.width, height: _maxHeight)
     } else {
       selfSize = contentSize
     }
@@ -178,7 +187,7 @@ open class NextGrowingTextView: UIScrollView {
     return _frame
   }
 
-  fileprivate func fitToScrollView() {
+  private func fitToScrollView() {
 
     let shouldScrollToBottom = contentOffset.y == contentSize.height - frame.height
     let actualTextViewSize = measureTextViewSize()
@@ -192,7 +201,7 @@ open class NextGrowingTextView: UIScrollView {
 
     let newScrollViewFrame = measureFrame(actualTextViewSize)
 
-    if oldScrollViewFrame.height != newScrollViewFrame.height && newScrollViewFrame.height <= maxHeight {
+    if oldScrollViewFrame.height != newScrollViewFrame.height && newScrollViewFrame.height <= _maxHeight {
       flashScrollIndicators()
       delegates.willChangeHeight(newScrollViewFrame.height)
     }
@@ -207,25 +216,25 @@ open class NextGrowingTextView: UIScrollView {
     delegates.didChangeHeight(frame.height)
   }
 
-  fileprivate func scrollToBottom() {
+  private func scrollToBottom() {
     if !disableAutomaticScrollToBottom {
       let offset = contentOffset
       contentOffset = CGPoint(x: offset.x, y: contentSize.height - frame.height)
     }
   }
 
-  fileprivate func updateMinimumAndMaximumHeight() {
-    self.minHeight = simulateHeight(1)
-    self.maxHeight = simulateHeight(self.maxNumberOfLines)
-    self.fitToScrollView()
+  private func updateMinimumAndMaximumHeight() {
+    _minHeight = simulateHeight(1)
+    _maxHeight = simulateHeight(maxNumberOfLines)
+    fitToScrollView()
   }
 
-  fileprivate func simulateHeight(_ line: Int) -> CGFloat {
+  private func simulateHeight(_ line: Int) -> CGFloat {
 
     let saveText = _textView.text
     var newText = "-"
 
-    self._textView.isHidden = true
+    _textView.isHidden = true
 
     for _ in 0..<line-1 {
       newText += "\n|W|"
@@ -235,18 +244,9 @@ open class NextGrowingTextView: UIScrollView {
 
     let height = measureTextViewSize().height
 
-    self._textView.text = saveText
-    self._textView.isHidden = false
+    _textView.text = saveText
+    _textView.isHidden = false
 
     return height
-  }
-
-  fileprivate var previousFrame: CGRect = CGRect.zero
-}
-
-extension NextGrowingTextView {
-  public var placeholderAttributedText: NSAttributedString? {
-    get { return _textView.placeholderAttributedText }
-    set { _textView.placeholderAttributedText = newValue }
   }
 }
