@@ -26,76 +26,82 @@ import UIKit
 // MARK: - NextGrowingInternalTextView: UITextView
 
 internal class NextGrowingInternalTextView: UITextView {
-    
-    // MARK: - Internal
-    
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
-        super.init(frame: frame, textContainer: textContainer)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(NextGrowingInternalTextView.textDidChangeNotification(_ :)), name: NSNotification.Name.UITextViewTextDidChange, object: self)
+
+  // MARK: - Internal
+
+  var didChange: () -> Void = {}
+
+  override init(frame: CGRect, textContainer: NSTextContainer?) {
+    super.init(frame: frame, textContainer: textContainer)
+
+    NotificationCenter.default.addObserver(self, selector: #selector(NextGrowingInternalTextView.textDidChangeNotification(_ :)), name: NSNotification.Name.UITextViewTextDidChange, object: self)
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+
+  override var text: String! {
+    didSet {
+      didChange()
+      updatePlaceholder()
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+  }
+
+  var placeholderAttributedText: NSAttributedString? {
+    didSet {
+      setNeedsDisplay()
     }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    setNeedsDisplay()
+  }
+
+  override func draw(_ rect: CGRect) {
+
+    super.draw(rect)
+
+    guard displayPlaceholder == true else {
+      return
     }
+
+    let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
+    paragraphStyle.alignment = textAlignment
+
+    let targetRect = CGRect(
+      x: 5 + textContainerInset.left,
+      y: textContainerInset.top,
+      width: frame.size.width - (textContainerInset.left + textContainerInset.right),
+      height: frame.size.height - (textContainerInset.top + textContainerInset.bottom)
+    )
     
-    override var text: String! {
-        didSet {
-            self.updatePlaceholder()
-        }
+    let attributedString = placeholderAttributedText
+    attributedString?.draw(in: targetRect)
+  }
+
+  // MARK: Private
+
+  private var displayPlaceholder: Bool = true {
+    didSet {
+      if oldValue != displayPlaceholder {
+        setNeedsDisplay()
+      }
     }
-    
-    var placeholderAttributedText: NSAttributedString? {
-        didSet {
-            self.setNeedsDisplay()
-        }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.setNeedsDisplay()
-    }
-    
-    override func draw(_ rect: CGRect) {
-        
-        super.draw(rect)
-        
-        guard self.displayPlaceholder == true else {
-            return
-        }
-        
-        let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = self.textAlignment
-        
-        let targetRect = CGRect(x: 5 + self.textContainerInset.left,
-                                y: self.textContainerInset.top,
-                                width: self.frame.size.width - (self.textContainerInset.left + self.textContainerInset.right),
-                                height: self.frame.size.height - (self.textContainerInset.top + self.textContainerInset.bottom))
-        
-        let attributedString = self.placeholderAttributedText
-        attributedString?.draw(in: targetRect)
-    }
-    
-    // MARK: Private
-    
-    fileprivate var displayPlaceholder: Bool = true {
-        didSet {
-            if oldValue != self.displayPlaceholder {
-                self.setNeedsDisplay()
-            }
-        }
-    }
-    
-    fileprivate dynamic func textDidChangeNotification(_ notification: Notification) {
-        
-        self.updatePlaceholder()
-    }
-    
-    fileprivate func updatePlaceholder() {
-        self.displayPlaceholder = self.text.characters.count == 0
-    }
+  }
+
+  private dynamic func textDidChangeNotification(_ notification: Notification) {
+
+    updatePlaceholder()
+    didChange()
+  }
+
+  private func updatePlaceholder() {
+    displayPlaceholder = text.characters.count == 0
+  }
 }

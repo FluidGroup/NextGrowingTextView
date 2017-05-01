@@ -39,9 +39,9 @@ class ViewController: UIViewController {
         
         self.growingTextView.layer.cornerRadius = 4
         self.growingTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        self.growingTextView.textContainerInset = UIEdgeInsets(top: 16, left: 0, bottom: 4, right: 0)
+        self.growingTextView.textView.textContainerInset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
         self.growingTextView.placeholderAttributedText = NSAttributedString(string: "Placeholder text",
-                                                                            attributes: [NSFontAttributeName: self.growingTextView.font!,
+                                                                            attributes: [NSFontAttributeName: self.growingTextView.textView.font!,
                                                                                          NSForegroundColorAttributeName: UIColor.gray
             ]
         )
@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func handleSendButton(_ sender: AnyObject) {
-        self.growingTextView.text = ""
+        self.growingTextView.textView.text = ""
         self.view.endEditing(true)
     }
     
