@@ -71,12 +71,9 @@ internal class NextGrowingInternalTextView: UITextView {
   }
 
   override func draw(_ rect: CGRect) {
-
     super.draw(rect)
 
-    guard displayPlaceholder == true else {
-      return
-    }
+    guard displayPlaceholder else { return }
 
     let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
     paragraphStyle.alignment = textAlignment
@@ -103,7 +100,6 @@ internal class NextGrowingInternalTextView: UITextView {
   }
 
   private dynamic func textDidChangeNotification(_ notification: Notification) {
-
     updatePlaceholder()
     didChange()
   }

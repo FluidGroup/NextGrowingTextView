@@ -62,7 +62,6 @@ open class NextGrowingTextView: UIScrollView {
       return _maxNumberOfLines
     }
     set {
-
       guard newValue > 1 else {
         _maxHeight = 1
         return
@@ -139,10 +138,9 @@ open class NextGrowingTextView: UIScrollView {
 
   open override func layoutSubviews() {
     super.layoutSubviews()
-    if _previousFrame.width != bounds.width {
-      _previousFrame = frame
-      fitToScrollView()
-    }
+    guard _previousFrame.width != bounds.width else { return }
+    _previousFrame = frame
+    fitToScrollView()
   }
 
   // MARK: UIResponder
@@ -217,10 +215,8 @@ open class NextGrowingTextView: UIScrollView {
   }
 
   private func scrollToBottom() {
-    if !disableAutomaticScrollToBottom {
-      let offset = contentOffset
-      contentOffset = CGPoint(x: offset.x, y: contentSize.height - frame.height)
-    }
+    guard !disableAutomaticScrollToBottom else { return }
+    contentOffset.y = contentSize.height - frame.height
   }
 
   private func updateMinimumAndMaximumHeight() {
