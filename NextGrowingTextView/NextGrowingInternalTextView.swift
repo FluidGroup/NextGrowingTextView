@@ -51,6 +51,13 @@ internal class NextGrowingInternalTextView: UITextView {
       updatePlaceholder()
     }
   }
+  
+  override var attributedText: NSAttributedString! {
+    didSet {
+      didChange()
+      updatePlaceholder()
+    }
+  }
 
   var placeholderAttributedText: NSAttributedString? {
     didSet {
