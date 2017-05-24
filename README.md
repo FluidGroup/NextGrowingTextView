@@ -42,10 +42,10 @@ public override init(frame: CGRect)
 ```
 let growingTextView: NextGrowingTextView
 
-growingTextView.delegates.textViewDidChange = { (growingTextView: NextGrowingTextView) in
+growingTextView.delegates.didChangeHeight = { [weak self] height in
+  guard let `self` = self else { return }
   // Do something
 }
-     
 ```
 
 ## Requirements
