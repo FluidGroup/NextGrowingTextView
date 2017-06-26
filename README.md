@@ -7,11 +7,11 @@
 [![License](https://img.shields.io/cocoapods/l/NextGrowingTextView.svg?style=flat)](http://cocoapods.org/pods/NextGrowingTextView)
 [![Platform](https://img.shields.io/cocoapods/p/NextGrowingTextView.svg?style=flat)](http://cocoapods.org/pods/NextGrowingTextView)
 
-The next in the generations of 'growing textviews' optimized for iOS 7 and above.
+The next in the generations of 'growing textviews' optimized for iOS 8 and above.
 
 ![example1](sample1.gif)
 
-As a successor to [HPGrowingTextView](https://github.com/HansPinckaers/GrowingTextView), NextGrowingTextView was redesigned from scratch to provide the most elegant architecture for iOS 7 and above.
+As a successor to [HPGrowingTextView](https://github.com/HansPinckaers/GrowingTextView), NextGrowingTextView was redesigned from scratch to provide the most elegant architecture for iOS 8 and above.
 
 Most autoresizing textviews are implemented with UITextView subclasses. The problem with that approach is that each iOS version changed UITextView's layout behavior, and so most of the implementations are laden with iOS version-specific workarounds to fix bugs and errant behavior. With NextGrowingTextView, the battle with the framework is now over.
 
