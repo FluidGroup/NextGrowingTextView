@@ -50,7 +50,7 @@ growingTextView.delegates.textViewDidChange = { (growingTextView: NextGrowingTex
 
 ## Requirements
 
-iOS 8.0+ Swift3
+iOS 8.0+ Swift 4
 
 ## Installation
 ### CocoaPods
