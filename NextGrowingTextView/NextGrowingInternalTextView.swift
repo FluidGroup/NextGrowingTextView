@@ -99,6 +99,7 @@ internal class NextGrowingInternalTextView: UITextView {
     }
   }
 
+  @objc
   private dynamic func textDidChangeNotification(_ notification: Notification) {
     updatePlaceholder()
     didChange()

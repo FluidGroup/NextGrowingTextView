@@ -41,8 +41,8 @@ class ViewController: UIViewController {
         self.growingTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
         self.growingTextView.textView.textContainerInset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
         self.growingTextView.placeholderAttributedText = NSAttributedString(string: "Placeholder text",
-                                                                            attributes: [NSFontAttributeName: self.growingTextView.textView.font!,
-                                                                                         NSForegroundColorAttributeName: UIColor.gray
+                                                                            attributes: [NSAttributedStringKey.font: self.growingTextView.textView.font!,
+                                                                                         NSAttributedStringKey.foregroundColor: UIColor.gray
             ]
         )
         
@@ -63,7 +63,7 @@ class ViewController: UIViewController {
     }
     
     
-    func keyboardWillHide(_ sender: Notification) {
+  @objc func keyboardWillHide(_ sender: Notification) {
         if let userInfo = (sender as NSNotification).userInfo {
             if let _ = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
                 //key point 0,
@@ -73,7 +73,7 @@ class ViewController: UIViewController {
             }
         }
     }
-    func keyboardWillShow(_ sender: Notification) {
+  @objc func keyboardWillShow(_ sender: Notification) {
         if let userInfo = (sender as NSNotification).userInfo {
             if let keyboardHeight = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
                 self.inputContainerViewBottom.constant = keyboardHeight
