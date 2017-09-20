@@ -48,7 +48,7 @@ open class NextGrowingTextView: UIScrollView {
     }
     set {
       guard newValue > 1 else {
-        _minHeight = 1
+        _minHeight = simulateHeight(1)
         return
       }
 
