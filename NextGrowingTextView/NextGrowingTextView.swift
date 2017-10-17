@@ -162,6 +162,9 @@ open class NextGrowingTextView: UIScrollView {
     _textView.didChange = { [weak self] in
       self?.fitToScrollView()
     }
+    _textView.didUpdateHeightDependencies = { [weak self] in
+      self?.updateMinimumAndMaximumHeight()
+    }
   }
 
   private func measureTextViewSize() -> CGSize {

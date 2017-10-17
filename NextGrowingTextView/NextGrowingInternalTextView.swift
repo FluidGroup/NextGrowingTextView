@@ -30,6 +30,7 @@ internal class NextGrowingInternalTextView: UITextView {
   // MARK: - Internal
 
   var didChange: () -> Void = {}
+  var didUpdateHeightDependencies: () -> Void = {}
 
   override init(frame: CGRect, textContainer: NSTextContainer?) {
     super.init(frame: frame, textContainer: textContainer)
@@ -56,6 +57,18 @@ internal class NextGrowingInternalTextView: UITextView {
     didSet {
       didChange()
       updatePlaceholder()
+    }
+  }
+    
+  override var font: UIFont? {
+    didSet {
+      didUpdateHeightDependencies()
+    }
+  }
+    
+  override var textContainerInset: UIEdgeInsets {
+    didSet {
+      didUpdateHeightDependencies()
     }
   }
 
