@@ -48,7 +48,7 @@ open class NextGrowingTextView: UIScrollView {
     }
     set {
       guard newValue > 1 else {
-        _minHeight = 1
+        _minHeight = simulateHeight(1)
         return
       }
 
@@ -63,7 +63,7 @@ open class NextGrowingTextView: UIScrollView {
     }
     set {
       guard newValue > 1 else {
-        _maxHeight = 1
+        _maxHeight = simulateHeight(1)
         return
       }
 
