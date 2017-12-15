@@ -48,7 +48,7 @@ open class NextGrowingTextView: UIScrollView {
     }
     set {
       guard newValue > 1 else {
-        _minHeight = 1
+        _minHeight = simulateHeight(1)
         return
       }
 
@@ -63,7 +63,7 @@ open class NextGrowingTextView: UIScrollView {
     }
     set {
       guard newValue > 1 else {
-        _maxHeight = 1
+        _maxHeight = simulateHeight(1)
         return
       }
 
@@ -104,7 +104,7 @@ open class NextGrowingTextView: UIScrollView {
     return measureFrame(measureTextViewSize()).size
   }
   
-  private var _textView: NextGrowingInternalTextView!
+  private let _textView: NextGrowingInternalTextView
   private var _maxNumberOfLines: Int = 0
   private var _minNumberOfLines: Int = 0
   private var _maxHeight: CGFloat = 0
@@ -114,19 +114,21 @@ open class NextGrowingTextView: UIScrollView {
   // MARK: - Initializers
 
   public override init(frame: CGRect) {
-    super.init(frame: frame)
-    if _textView == nil {
-        _textView = NextGrowingInternalTextView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
-    }
+    
+    _textView = NextGrowingInternalTextView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
     _previousFrame = frame
+
+    super.init(frame: frame)
+
     setup()
   }
 
   public required init?(coder aDecoder: NSCoder) {
-     super.init(coder: aDecoder)
-    if _textView == nil {
-        _textView = NextGrowingInternalTextView(frame: CGRect.zero)
-    }
+
+    _textView = NextGrowingInternalTextView(frame: CGRect.zero)
+
+    super.init(coder: aDecoder)
+
     _textView.frame = bounds
     _previousFrame = frame
     setup()
@@ -159,6 +161,9 @@ open class NextGrowingTextView: UIScrollView {
 
     _textView.didChange = { [weak self] in
       self?.fitToScrollView()
+    }
+    _textView.didUpdateHeightDependencies = { [weak self] in
+      self?.updateMinimumAndMaximumHeight()
     }
   }
 
