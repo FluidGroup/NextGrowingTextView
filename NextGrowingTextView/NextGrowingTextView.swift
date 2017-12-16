@@ -104,7 +104,7 @@ open class NextGrowingTextView: UIScrollView {
     return measureFrame(measureTextViewSize()).size
   }
   
-  private let _textView: NextGrowingInternalTextView
+  private var _textView: NextGrowingInternalTextView!
   private var _maxNumberOfLines: Int = 0
   private var _minNumberOfLines: Int = 0
   private var _maxHeight: CGFloat = 0
@@ -114,21 +114,19 @@ open class NextGrowingTextView: UIScrollView {
   // MARK: - Initializers
 
   public override init(frame: CGRect) {
-    
-    _textView = NextGrowingInternalTextView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
-    _previousFrame = frame
-
     super.init(frame: frame)
-
+    if _textView == nil {
+        _textView = NextGrowingInternalTextView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
+    }
+    _previousFrame = frame
     setup()
   }
 
   public required init?(coder aDecoder: NSCoder) {
-
-    _textView = NextGrowingInternalTextView(frame: CGRect.zero)
-
-    super.init(coder: aDecoder)
-
+     super.init(coder: aDecoder)
+    if _textView == nil {
+        _textView = NextGrowingInternalTextView(frame: CGRect.zero)
+    }
     _textView.frame = bounds
     _previousFrame = frame
     setup()
