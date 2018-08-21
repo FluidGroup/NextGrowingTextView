@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var inputContainerViewBottom: NSLayoutConstraint!
-    @IBOutlet weak var growingTextView: NextGrowingTextView!
+    @IBOutlet weak var growingTextView: GrowingTextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +39,15 @@ class ViewController: UIViewController {
         
         self.growingTextView.layer.cornerRadius = 4
         self.growingTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        self.growingTextView.textView.textContainerInset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
-        self.growingTextView.placeholderAttributedText = NSAttributedString(string: "Placeholder text",
-                                                                            attributes: [NSAttributedStringKey.font: self.growingTextView.textView.font!,
-                                                                                         NSAttributedStringKey.foregroundColor: UIColor.gray
-            ]
-        )
-        
+
+//        self.growingTextView.placeholderAttributedText = NSAttributedString(
+//          string: "Placeholder text",
+//          attributes: [
+//            .font: self.growingTextView.textView.font!,
+//            .foregroundColor: UIColor.gray
+//          ]
+//      )
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,7 +60,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func handleSendButton(_ sender: AnyObject) {
-        self.growingTextView.textView.text = ""
+        self.growingTextView.text = ""
         self.view.endEditing(true)
     }
     
