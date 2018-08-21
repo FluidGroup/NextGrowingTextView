@@ -162,6 +162,7 @@ open class NextGrowingTextView: UIScrollView {
 
   private func setup() {
 
+    _textView.textContainerInset = .init(top: 4, left: 0, bottom: 4, right: 0)
     _textView.isScrollEnabled = false
     _textView.font = UIFont.systemFont(ofSize: 16)
     _textView.backgroundColor = UIColor.clear
