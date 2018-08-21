@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,13 +22,16 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ckE-F6-idm">
+                                <rect key="frame" x="0.0" y="619" width="375" height="48"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="36" translatesAutoresizingMaskIntoConstraints="NO" id="jTC-nR-hYx" customClass="NextGrowingTextView" customModule="NextGrowingTextView">
+                                        <rect key="frame" x="8" y="6" width="314" height="36"/>
                                         <color key="backgroundColor" red="0.94797950983047485" green="0.94797950983047485" blue="0.94797950983047485" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="atN-J5-w3s">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="atN-J5-w3s">
+                                        <rect key="frame" x="329" y="14" width="38" height="28"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="0Tx-Ge-BAv"/>
+                                            <constraint firstAttribute="height" constant="28" id="0Tx-Ge-BAv"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Send"/>
@@ -36,12 +42,12 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="jTC-nR-hYx" secondAttribute="bottom" constant="4" id="2bO-GH-WID"/>
+                                    <constraint firstAttribute="bottom" secondItem="jTC-nR-hYx" secondAttribute="bottom" constant="6" id="2bO-GH-WID"/>
                                     <constraint firstAttribute="trailing" secondItem="atN-J5-w3s" secondAttribute="trailing" constant="8" id="YJc-pr-5mz"/>
                                     <constraint firstItem="jTC-nR-hYx" firstAttribute="leading" secondItem="ckE-F6-idm" secondAttribute="leading" constant="8" id="cYG-ik-yA5"/>
                                     <constraint firstItem="atN-J5-w3s" firstAttribute="leading" secondItem="jTC-nR-hYx" secondAttribute="trailing" constant="7" id="cwv-d8-157"/>
-                                    <constraint firstItem="jTC-nR-hYx" firstAttribute="top" secondItem="ckE-F6-idm" secondAttribute="top" constant="4" id="mMp-Aj-i3w"/>
-                                    <constraint firstAttribute="bottom" secondItem="atN-J5-w3s" secondAttribute="bottom" constant="4" id="sDY-fm-ocO"/>
+                                    <constraint firstItem="jTC-nR-hYx" firstAttribute="top" secondItem="ckE-F6-idm" secondAttribute="top" constant="6" id="mMp-Aj-i3w"/>
+                                    <constraint firstAttribute="bottom" secondItem="atN-J5-w3s" secondAttribute="bottom" constant="6" id="sDY-fm-ocO"/>
                                     <constraint firstItem="jTC-nR-hYx" firstAttribute="leading" secondItem="ckE-F6-idm" secondAttribute="leading" constant="8" id="u1U-9A-s3M"/>
                                 </constraints>
                             </view>
@@ -61,7 +67,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="334.5" y="312.5"/>
+            <point key="canvasLocation" x="333.60000000000002" y="311.69415292353824"/>
         </scene>
     </scenes>
 </document>
