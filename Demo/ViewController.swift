@@ -33,9 +33,9 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
 
-    NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 
-    NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
     self.growingTextView.layer.cornerRadius = 4
     self.growingTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
 
   @objc func keyboardWillHide(_ sender: Notification) {
     if let userInfo = (sender as NSNotification).userInfo {
-      if let _ = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
+      if let _ = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
         //key point 0,
         self.inputContainerViewBottom.constant =  0
         //textViewBottomConstraint.constant = keyboardHeight
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
   }
   @objc func keyboardWillShow(_ sender: Notification) {
     if let userInfo = (sender as NSNotification).userInfo {
-      if let keyboardHeight = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
+      if let keyboardHeight = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
         self.inputContainerViewBottom.constant = keyboardHeight
         UIView.animate(withDuration: 0.25, animations: { () -> Void in
           self.view.layoutIfNeeded()
