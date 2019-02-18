@@ -179,7 +179,8 @@ open class NextGrowingTextView: UIScrollView {
   }
 
   private func measureTextViewSize() -> CGSize {
-    return _textView.sizeThatFits(CGSize(width: self.bounds.width, height: CGFloat.infinity))
+    let size = _textView.sizeThatFits(CGSize(width: self.bounds.width, height: CGFloat.infinity))
+    return .init(width: size.width, height: max(size.height, _minHeight))
   }
 
   private func measureFrame(_ contentSize: CGSize) -> CGRect {
