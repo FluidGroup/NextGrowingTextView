@@ -72,6 +72,8 @@ open class NextGrowingTextView: UIScrollView {
   }
 
   open var isAutomaticScrollToBottomEnabled = true
+
+  /// Use this to enable/disable flash scroll indicators while scroll height is less than max height
   open var isFlashScrollIndicatorsEnabled = true
   
   open var placeholderAttributedText: NSAttributedString? {
