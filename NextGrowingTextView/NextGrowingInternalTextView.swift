@@ -31,11 +31,18 @@ internal class NextGrowingInternalTextView: UITextView {
 
   var didChange: () -> Void = {}
   var didUpdateHeightDependencies: () -> Void = {}
+  
+  private lazy var placeholderDisplayLabel = UILabel()
 
   override init(frame: CGRect, textContainer: NSTextContainer?) {
     super.init(frame: frame, textContainer: textContainer)
 
     NotificationCenter.default.addObserver(self, selector: #selector(NextGrowingInternalTextView.textDidChangeNotification(_ :)), name: UITextView.textDidChangeNotification, object: self)
+    
+    placeholderDisplayLabel.numberOfLines = 0
+    placeholderDisplayLabel.adjustsFontSizeToFitWidth = true
+    placeholderDisplayLabel.minimumScaleFactor = 0.4
+    addSubview(placeholderDisplayLabel)
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -71,46 +78,36 @@ internal class NextGrowingInternalTextView: UITextView {
       didUpdateHeightDependencies()
     }
   }
-
+  
   var placeholderAttributedText: NSAttributedString? {
-    didSet {
-      setNeedsDisplay()
+    get {
+      placeholderDisplayLabel.attributedText
+    }
+    set {
+      placeholderDisplayLabel.attributedText = newValue
+      setNeedsLayout()
     }
   }
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    setNeedsDisplay()
-  }
-
-  override func draw(_ rect: CGRect) {
-    super.draw(rect)
-
-    guard displayPlaceholder else { return }
-
-    let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-    paragraphStyle.alignment = textAlignment
-
-    let targetRect = CGRect(
-      x: 5 + textContainerInset.left,
-      y: textContainerInset.top,
-      width: frame.size.width - (textContainerInset.left + textContainerInset.right),
-      height: frame.size.height - (textContainerInset.top + textContainerInset.bottom)
+    
+    let maxSize = bounds.inset(by: textContainerInset).size
+    
+    var size = placeholderDisplayLabel.sizeThatFits(maxSize)
+    size.height = min(size.height, maxSize.height)
+    
+    placeholderDisplayLabel.frame = CGRect(
+      origin: .init(
+        x: 5 + textContainerInset.left,
+        y: textContainerInset.top
+      ),
+      size: size
     )
     
-    let attributedString = placeholderAttributedText
-    attributedString?.draw(in: targetRect)
   }
 
   // MARK: Private
-
-  private var displayPlaceholder: Bool = true {
-    didSet {
-      if oldValue != displayPlaceholder {
-        setNeedsDisplay()
-      }
-    }
-  }
 
   @objc
   private dynamic func textDidChangeNotification(_ notification: Notification) {
@@ -119,6 +116,6 @@ internal class NextGrowingInternalTextView: UITextView {
   }
 
   private func updatePlaceholder() {
-    displayPlaceholder = text.isEmpty
+    placeholderDisplayLabel.isHidden = !text.isEmpty
   }
 }

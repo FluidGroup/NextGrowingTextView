@@ -40,7 +40,7 @@ class ViewController: UIViewController {
     self.growingTextView.layer.cornerRadius = 4
     self.growingTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
     self.growingTextView.placeholderAttributedText = NSAttributedString(
-      string: "Placeholder text",
+      string: "Placeholder text Placeholder text Placeholder text",
       attributes: [
         .font: self.growingTextView.textView.font!,
         .foregroundColor: UIColor.gray
