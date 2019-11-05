@@ -81,7 +81,11 @@ internal class NextGrowingInternalTextView: UITextView {
   
   var placeholderAttributedText: NSAttributedString? {
     get {
-      placeholderDisplayLabel.attributedText
+      #if swift(>=5.1)
+        placeholderDisplayLabel.attributedText
+      #else
+        return placeholderDisplayLabel.attributedText
+      #endif
     }
     set {
       placeholderDisplayLabel.attributedText = newValue
