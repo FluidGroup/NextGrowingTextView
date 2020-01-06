@@ -81,7 +81,7 @@ internal class NextGrowingInternalTextView: UITextView {
   
   var placeholderAttributedText: NSAttributedString? {
     get {
-      placeholderDisplayLabel.attributedText
+      return placeholderDisplayLabel.attributedText
     }
     set {
       placeholderDisplayLabel.attributedText = newValue
