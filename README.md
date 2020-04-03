@@ -37,6 +37,8 @@ public var delegates: Delegates
 public override init(frame: CGRect)
 ```
 
+Use `isFlashScrollIndicatorsEnabled` to enable/disable flash scroll indicators while text view height is less than max height.
+
 ## Delegates
 
 ```
