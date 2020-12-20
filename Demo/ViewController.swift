@@ -66,7 +66,7 @@ class ViewController: UIViewController {
     if let userInfo = (sender as NSNotification).userInfo {
       if let _ = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
         //key point 0,
-        self.inputContainerViewBottom.constant =  0
+        self.inputContainerViewBottom.constant = 0
         //textViewBottomConstraint.constant = keyboardHeight
         UIView.animate(withDuration: 0.25, animations: { () -> Void in self.view.layoutIfNeeded() })
       }
