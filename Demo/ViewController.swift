@@ -25,14 +25,13 @@ import NextGrowingTextView
 
 class ViewController: UIViewController {
 
-  @IBOutlet weak var inputContainerView: UIView!
-  @IBOutlet weak var inputContainerViewBottom: NSLayoutConstraint!
-  @IBOutlet weak var growingTextView: NextGrowingTextView!
+  @IBOutlet var inputContainerView: UIView!
+  @IBOutlet var inputContainerViewBottom: NSLayoutConstraint!
+  @IBOutlet var growingTextView: NextGrowingTextView!
 
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
-
     NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 
     NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
