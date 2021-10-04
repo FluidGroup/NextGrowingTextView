@@ -94,11 +94,11 @@ open class NextGrowingTextView: UIScrollView {
     return _textView.isFirstResponder
   }
   
-  open override func becomeFirstResponder() -> Bool {
+  @discardableResult open override func becomeFirstResponder() -> Bool {
     return _textView.becomeFirstResponder()
   }
   
-  open override func resignFirstResponder() -> Bool {
+  @discardableResult open override func resignFirstResponder() -> Bool {
     return _textView.resignFirstResponder()
   }
   
@@ -165,6 +165,7 @@ open class NextGrowingTextView: UIScrollView {
 
   private func setup() {
 
+    NotificationCenter.default.addObserver(self, selector: #selector(willShowMenu(_:)), name: UIMenuController.willShowMenuNotification, object: nil)
     _textView.textContainerInset = .init(top: 4, left: 0, bottom: 4, right: 0)
     _textView.isScrollEnabled = false
     _textView.font = UIFont.systemFont(ofSize: 16)
@@ -179,6 +180,21 @@ open class NextGrowingTextView: UIScrollView {
     _textView.didUpdateHeightDependencies = { [weak self] in
       self?.updateMinimumAndMaximumHeight()
     }
+  }
+
+  private var isFixingMenuPosition: Bool = false
+  @objc private func willShowMenu(_ notification: Notification) {
+    guard let menuController = notification.object as? UIMenuController,
+          let superview = superview,
+          isFixingMenuPosition == false,
+          _textView.isFirstResponder,
+          !menuController.menuFrame.intersects(superview.convert(frame, to: nil))
+    else { return }
+    menuController.setMenuVisible(false, animated: false)
+    menuController.setTargetRect(frame, in: superview)
+    isFixingMenuPosition = true
+    menuController.setMenuVisible(true, animated: true)
+    isFixingMenuPosition = false
   }
 
   private func measureTextViewSize() -> CGSize {

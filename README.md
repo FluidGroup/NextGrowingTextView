@@ -21,6 +21,11 @@ NextGrowingTextView approaches the problem differently by wrapping UITextView wi
     - internal NextGrowingInternalTextView: UITextView
 ```
 
+> 💡  
+**You want also to need to display a user-interface on top of the keyboard?**  
+[muukii/Bureau](https://github.com/muukii/Bureau) enables you to show your user-interface on top of the keyboard in the easiest way.
+
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
