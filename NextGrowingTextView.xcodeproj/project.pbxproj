@@ -17,6 +17,7 @@
 		4BDB880A1DC0429300E70D5B /* NextGrowingTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB87E51DC0423F00E70D5B /* NextGrowingTextView.framework */; };
 		4BDB880B1DC0429300E70D5B /* NextGrowingTextView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB87E51DC0423F00E70D5B /* NextGrowingTextView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BDB88101DC042F700E70D5B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BDB880F1DC042F700E70D5B /* Launch Screen.storyboard */; };
+		FC58EF3A270AEB2C000C4AFA /* ScrollViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC58EF39270AEB2C000C4AFA /* ScrollViewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		4BDB88011DC0426A00E70D5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BDB88061DC0426A00E70D5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BDB880F1DC042F700E70D5B /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		FC58EF39270AEB2C000C4AFA /* ScrollViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			children = (
 				4BDB87FA1DC0426A00E70D5B /* AppDelegate.swift */,
 				4BDB87FC1DC0426A00E70D5B /* ViewController.swift */,
+				FC58EF39270AEB2C000C4AFA /* ScrollViewViewController.swift */,
 				4BDB87FE1DC0426A00E70D5B /* Main.storyboard */,
 				4BDB88011DC0426A00E70D5B /* Assets.xcassets */,
 				4BDB88061DC0426A00E70D5B /* Info.plist */,
@@ -177,7 +180,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = muukii;
 				TargetAttributes = {
 					4BDB87E41DC0423F00E70D5B = {
@@ -247,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC58EF3A270AEB2C000C4AFA /* ScrollViewViewController.swift in Sources */,
 				4BDB87FD1DC0426A00E70D5B /* ViewController.swift in Sources */,
 				4BDB87FB1DC0426A00E70D5B /* AppDelegate.swift in Sources */,
 			);
@@ -278,6 +282,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -342,6 +347,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -442,6 +448,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
 				INFOPLIST_FILE = Demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.muuki.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -456,6 +463,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
 				INFOPLIST_FILE = Demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.muuki.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
