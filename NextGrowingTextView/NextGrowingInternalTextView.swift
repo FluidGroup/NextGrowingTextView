@@ -31,17 +31,16 @@ internal class NextGrowingInternalTextView: UITextView {
 
   var didChange: () -> Void = {}
   var didUpdateHeightDependencies: () -> Void = {}
-  
+
   private lazy var placeholderDisplayLabel = UILabel()
 
   override init(frame: CGRect, textContainer: NSTextContainer?) {
     super.init(frame: frame, textContainer: textContainer)
 
     NotificationCenter.default.addObserver(self, selector: #selector(NextGrowingInternalTextView.textDidChangeNotification(_ :)), name: UITextView.textDidChangeNotification, object: self)
-    
-    placeholderDisplayLabel.numberOfLines = 0
-    placeholderDisplayLabel.adjustsFontSizeToFitWidth = true
+    isPlaceHolderMultiLine = false
     placeholderDisplayLabel.minimumScaleFactor = 0.4
+    placeholderDisplayLabel.lineBreakMode = .byWordWrapping
     addSubview(placeholderDisplayLabel)
   }
 
@@ -78,7 +77,23 @@ internal class NextGrowingInternalTextView: UITextView {
       didUpdateHeightDependencies()
     }
   }
-  
+
+  var isPlaceHolderMultiLine: Bool {
+    get {
+      placeholderDisplayLabel.numberOfLines != 1
+    }
+    set {
+      if newValue {
+        placeholderDisplayLabel.numberOfLines = 1
+        placeholderDisplayLabel.adjustsFontSizeToFitWidth = true
+      } else {
+        placeholderDisplayLabel.numberOfLines = 0
+        placeholderDisplayLabel.adjustsFontSizeToFitWidth = false
+      }
+      updatePlaceholder()
+    }
+  }
+
   var placeholderAttributedText: NSAttributedString? {
     get {
       placeholderDisplayLabel.attributedText
@@ -92,11 +107,11 @@ internal class NextGrowingInternalTextView: UITextView {
   override func layoutSubviews() {
     super.layoutSubviews()
     
-    let maxSize = bounds.inset(by: textContainerInset).size
-    
-    var size = placeholderDisplayLabel.sizeThatFits(maxSize)
-    size.height = min(size.height, maxSize.height)
-    
+    let boundsInsettedSize = bounds.inset(by: textContainerInset).size
+    var size = placeholderDisplayLabel.sizeThatFits(boundsInsettedSize)
+    if !isPlaceHolderMultiLine {
+      size.height = min(boundsInsettedSize.height, size.height)
+    }
     placeholderDisplayLabel.frame = CGRect(
       origin: .init(
         x: 5 + textContainerInset.left,
@@ -104,7 +119,6 @@ internal class NextGrowingInternalTextView: UITextView {
       ),
       size: size
     )
-    
   }
 
   // MARK: Private

@@ -80,7 +80,14 @@ open class NextGrowingTextView: UIScrollView {
     get { return _textView.placeholderAttributedText }
     set { _textView.placeholderAttributedText = newValue }
   }
-  
+
+  /// true: Let the placeholder spans any number of lines. The view must be tall enough to contain it.
+  /// false: placeholder will shring by up to 0.4 if it cannot fit one line.
+  open var isPlacholderMultiline: Bool {
+    get { _textView.isPlaceHolderMultiLine }
+    set { _textView.isPlaceHolderMultiLine = newValue }
+  }
+
   open override var inputView: UIView? {
     get {
       return _textView.inputView
