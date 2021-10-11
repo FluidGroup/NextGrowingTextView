@@ -84,11 +84,11 @@ internal class NextGrowingInternalTextView: UITextView {
     }
     set {
       if newValue {
-        placeholderDisplayLabel.numberOfLines = 1
-        placeholderDisplayLabel.adjustsFontSizeToFitWidth = true
-      } else {
         placeholderDisplayLabel.numberOfLines = 0
         placeholderDisplayLabel.adjustsFontSizeToFitWidth = false
+      } else {
+        placeholderDisplayLabel.numberOfLines = 1
+        placeholderDisplayLabel.adjustsFontSizeToFitWidth = true
       }
       updatePlaceholder()
     }
