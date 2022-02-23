@@ -1,0 +1,9 @@
+name: CI
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  test:
+    runs-on: macos-11
+    steps:
+    - uses: actions/checkout@v2
+    - run: set -o pipefail && xcodebuild test -workspace Example/NextGrowingTextView.xcworkspace -scheme NextGrowingTextView-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
+    - run: pod lib lint
