@@ -11,6 +11,6 @@ let package = Package(
         .library(name: "NextGrowingTextView", targets: ["NextGrowingTextView"]),
     ],
     targets: [     
-        .target(name: "NextGrowingTextView", path: "NextGrowingTextView", exclude: ["NextGrowingTextView/Info.plist"]),
+        .target(name: "NextGrowingTextView", path: "NextGrowingTextView"),
     ]
 )
