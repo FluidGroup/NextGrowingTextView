@@ -114,7 +114,7 @@ internal class NextGrowingInternalTextView: UITextView {
     }
     placeholderDisplayLabel.frame = CGRect(
       origin: .init(
-        x: 5 + textContainerInset.left,
+        x: textContainerInset.left,
         y: textContainerInset.top
       ),
       size: size
