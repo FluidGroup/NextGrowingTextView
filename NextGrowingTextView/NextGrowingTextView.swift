@@ -23,213 +23,380 @@
 import Foundation
 import UIKit
 
-open class NextGrowingTextView: UIScrollView {
+open class NextGrowingTextView: UIView {
+
+  public struct Configuration {
+    
+    public enum PlaceholderHidingMode {
+      /// Hides on focusing
+      case onFocus
+      /// Hides typed text one or more.
+      case onTypedText
+    }
+
+    public var minLines: Int
+    public var maxLines: Int
+
+    public var isAutomaticScrollToBottomEnabled: Bool = true
+    public var isFlashScrollIndicatorsEnabled: Bool = false
+        
+    public var placeholderHidingMode: PlaceholderHidingMode
+    
+    public init(
+      placeholderHidingMode: PlaceholderHidingMode = .onTypedText,
+      minLines: Int = 1,
+      maxLines: Int = 3,
+      isAutomaticScrollToBottomEnabled: Bool = true,
+      isFlashScrollIndicatorsEnabled: Bool = false
+    ) {
+    
+      self.placeholderHidingMode = placeholderHidingMode
+      self.minLines = minLines
+      self.maxLines = maxLines
+      self.isAutomaticScrollToBottomEnabled = isAutomaticScrollToBottomEnabled
+      self.isFlashScrollIndicatorsEnabled = isFlashScrollIndicatorsEnabled
+    }
+  }
   
-  // MARK: - Nested types
+  public struct State: Equatable {
+    public var isEditing: Bool = false
+    public var text: String = ""
+  }
+    
+  public enum Action {
+    case willChangeHeight(newHeight: CGFloat)
+    case didChangeHeight(newHeight: CGFloat)
+    case didChangeState(state: State)
+  }
   
-  open class Delegates {
-    open var willChangeHeight: (CGFloat) -> Void = { _ in }
-    open var didChangeHeight: (CGFloat) -> Void = { _ in }
+  public private(set) var state: State = .init() {
+    didSet {
+      guard oldValue != state else { return }
+      actionHandler(.didChangeState(state: state))
+      update(by: state)
+    }
+  }
+
+  public final var actionHandler: (Action) -> Void {
+    get { scrollable.actionHandler }
+    set { scrollable.actionHandler = newValue }
+  }
+
+  public final var textView: UITextView {
+    scrollable.textView
+  }
+  
+  public let placeholderLabel = UILabel()
+  
+  public var configuration: Configuration {
+    get { scrollable.configuration }
+    set {
+      scrollable.configuration = newValue
+      update(by: configuration)
+    }
+  }
+
+  private let scrollable: PlatterTextView
+
+  private let sizingContainer: SizingContainerView
+
+  public init() {
+    self.scrollable = .init(frame: .null)
+    self.sizingContainer = .init(content: self.scrollable)
+
+    super.init(frame: .null)
+
+    addSubview(sizingContainer)
+       
+    sizingContainer.translatesAutoresizingMaskIntoConstraints = false
+    placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
+
+    NSLayoutConstraint.activate([
+      
+      sizingContainer.topAnchor.constraint(equalTo: topAnchor),
+      sizingContainer.rightAnchor.constraint(equalTo: rightAnchor),
+      sizingContainer.leftAnchor.constraint(equalTo: leftAnchor),
+      sizingContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+    ])
+            
+    scrollable.textViewActionHandler = { [weak self] action in
+      guard let self = self else { return }
+      
+      switch action {
+      case .didBeginEditing:
+        self.state.isEditing = true
+      case .didEndEditing:
+        self.state.isEditing = false
+      case .didChangeContent:
+        self.state.text = self.textView.text ?? ""
+      case .didUpdateDepedenciesForHeight:
+        self.update(by: self.configuration)
+      }
+    }
+  }
+
+  @available(*, unavailable)
+  public required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  private func update(by state: State) {
+    
+    switch configuration.placeholderHidingMode {
+    case .onTypedText:
+      placeholderLabel.isHidden = state.text.isEmpty == false
+    case .onFocus:
+      placeholderLabel.isHidden = state.isEditing
+    }
+    
+  }
+  
+  private func update(by configuration: Configuration) {
+    
+    placeholderLabel.removeFromSuperview()
+    
+    addSubview(placeholderLabel)
+    
+    let inset = textView.textContainerInset
+    
+    NSLayoutConstraint.activate([
+      
+      placeholderLabel.topAnchor.constraint(equalTo: topAnchor, constant: inset.top),
+      placeholderLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: inset.left + 4),
+      placeholderLabel.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -(inset.right + 4)),
+      placeholderLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -inset.bottom),
+            
+    ])
+    
+    // refresh with current state and new configuration
+    update(by: state)
+    
+  }
+
+  // MARK: - UIResponder
+
+  open override var inputView: UIView? {
+    get { scrollable.inputView }
+    set { scrollable.inputView = newValue }
+  }
+
+  open override var isFirstResponder: Bool {
+    return scrollable.isFirstResponder
+  }
+
+  @discardableResult
+  open override func becomeFirstResponder() -> Bool {
+    return scrollable.becomeFirstResponder()
+  }
+
+  @discardableResult
+  open override func resignFirstResponder() -> Bool {
+    return scrollable.resignFirstResponder()
+  }
+
+  open override func reloadInputViews() {
+    super.reloadInputViews()
+    scrollable.reloadInputViews()
+  }
+
+}
+
+final class PlatterTextView: UIScrollView {
+
+  private struct State: Equatable {
+    var previousFrame: CGRect = .null
+    var isFixingMenuPosition = false
+
+    var resolvedMinHeight: CGFloat = 0
+    var resolvedMaxHeight: CGFloat = 0
   }
 
   // MARK: - Properties
 
-  open var delegates = Delegates()
+  var configuration: NextGrowingTextView.Configuration = .init() {
+    didSet {
+      update(by: configuration)
+    }
+  }
 
-  open var textView: UITextView {
+  var actionHandler: (NextGrowingTextView.Action) -> Void = { _ in }
+  var textViewActionHandler: (InternalTextView.Action) -> Void = { _ in }
+
+  var textView: UITextView {
     return _textView
   }
 
-  open var minNumberOfLines: Int {
-    get {
-      return _minNumberOfLines
-    }
-    set {
-      guard newValue > 1 else {
-        _minNumberOfLines = 1
-        return
-      }
-      _minNumberOfLines = newValue
-    }
-  }
+  private let _textView: InternalTextView
 
-  open var maxNumberOfLines: Int {
-    get {
-      return _maxNumberOfLines
-    }
-    set {
-      guard newValue > 1 else {
-        _maxNumberOfLines = 1
-        return
-      }
-      _maxNumberOfLines = newValue
-    }
-  }
-
-  @available(*, deprecated, message: "Use isAutomaticScrollToBottomEnabled")
-  open var disableAutomaticScrollToBottom: Bool {
-    return !isAutomaticScrollToBottomEnabled
-  }
-
-  open var isAutomaticScrollToBottomEnabled = true
-
-  /// Use this to enable/disable flash scroll indicators while scroll height is less than max height
-  open var isFlashScrollIndicatorsEnabled = false
-  
-  open var placeholderAttributedText: NSAttributedString? {
-    get { return _textView.placeholderAttributedText }
-    set { _textView.placeholderAttributedText = newValue }
-  }
-
-  /// true: Let the placeholder spans any number of lines. The view must be tall enough to contain it.
-  /// false: placeholder will shring by up to 0.4 if it cannot fit one line.
-  open var isPlacholderMultiline: Bool {
-    get { _textView.isPlaceHolderMultiLine }
-    set { _textView.isPlaceHolderMultiLine = newValue }
-  }
-
-  open override var inputView: UIView? {
-    get {
-      return _textView.inputView
-    }
-    set {
-      _textView.inputView = newValue
-    }
-  }
-  
-  open override var isFirstResponder: Bool {
-    return _textView.isFirstResponder
-  }
-  
-  @discardableResult open override func becomeFirstResponder() -> Bool {
-    return _textView.becomeFirstResponder()
-  }
-  
-  @discardableResult open override func resignFirstResponder() -> Bool {
-    return _textView.resignFirstResponder()
-  }
-  
-  open override var intrinsicContentSize: CGSize {
-    return measureFrame(measureTextViewSize()).size
-  }
-  
-  private let _textView: NextGrowingInternalTextView
-
-  private var _maxNumberOfLines: Int = 3 {
+  private var state: State = .init() {
     didSet {
-      _maxHeight = simulateHeight(_maxNumberOfLines)
+      guard oldValue != state else { return }
+      update(by: state)
     }
   }
-
-  private var _minNumberOfLines: Int = 1 {
-    didSet {
-      _minHeight = simulateHeight(_minNumberOfLines)
-    }
-  }
-
-  private var _maxHeight: CGFloat = 0
-  private var _minHeight: CGFloat = 0
-  private var _previousFrame: CGRect = CGRect.zero
-
+   
   // MARK: - Initializers
 
-  public override init(frame: CGRect) {
-    
-    _textView = NextGrowingInternalTextView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
-    _previousFrame = frame
+  override init(frame: CGRect) {
+
+    _textView = InternalTextView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
 
     super.init(frame: frame)
 
+    state.previousFrame = frame
+
     setup()
   }
 
-  public required init?(coder aDecoder: NSCoder) {
-
-    _textView = NextGrowingInternalTextView(frame: CGRect.zero)
-
-    super.init(coder: aDecoder)
-
-    _textView.frame = bounds
-    _previousFrame = frame
-    setup()
-  }
-  
-  // MARK: - Functions
-
-  open override func layoutSubviews() {
-    super.layoutSubviews()
-    guard _previousFrame.width != bounds.width else { return }
-    _previousFrame = frame
-    fitToScrollView()
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 
-  // MARK: UIResponder
- 
-  open override func reloadInputViews() {
+  // MARK: - UIResponder
+
+  override var inputView: UIView? {
+    get { _textView.inputView }
+    set { _textView.inputView = newValue }
+  }
+
+  override var isFirstResponder: Bool {
+    return _textView.isFirstResponder
+  }
+
+  @discardableResult
+  override func becomeFirstResponder() -> Bool {
+    return _textView.becomeFirstResponder()
+  }
+
+  @discardableResult
+  override func resignFirstResponder() -> Bool {
+    return _textView.resignFirstResponder()
+  }
+
+  override func reloadInputViews() {
     super.reloadInputViews()
     _textView.reloadInputViews()
   }
 
+  // MARK: - UIView
+
+  override func layoutSubviews() {
+
+    super.layoutSubviews()
+
+    guard state.previousFrame.width != bounds.width else { return }
+
+    state.previousFrame = frame
+    fitToScrollView()
+  }
+
+  // MARK: - Functions
+
   private func setup() {
 
-    NotificationCenter.default.addObserver(self, selector: #selector(willShowMenu(_:)), name: UIMenuController.willShowMenuNotification, object: nil)
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(willShowMenu(_:)),
+      name: UIMenuController.willShowMenuNotification,
+      object: nil
+    )
+
     _textView.textContainerInset = .init(top: 4, left: 0, bottom: 4, right: 0)
     _textView.isScrollEnabled = false
     _textView.font = UIFont.systemFont(ofSize: 16)
     _textView.backgroundColor = UIColor.clear
     addSubview(_textView)
 
-    updateMinimumAndMaximumHeight()
+    _textView.actionHandler = { [weak self] action in
+      guard let self = self else { return }
+      
+      switch action {
+      case .didBeginEditing:
+        break
+      case .didEndEditing:
+        break
+      case .didChangeContent:
+        self.fitToScrollView()
+      case .didUpdateDepedenciesForHeight:
+        self.update(by: self.configuration)
+      }
+      
+      self.textViewActionHandler(action)
+    }
 
-    _textView.didChange = { [weak self] in
-      self?.fitToScrollView()
-    }
-    _textView.didUpdateHeightDependencies = { [weak self] in
-      self?.updateMinimumAndMaximumHeight()
-    }
+    update(by: configuration)
   }
 
-  private var isFixingMenuPosition: Bool = false
+  /**
+   Fixing rect to display UIMenu to provide function copy or paste.
+   */
   @objc private func willShowMenu(_ notification: Notification) {
-    guard let menuController = notification.object as? UIMenuController,
-          let superview = superview,
-          isFixingMenuPosition == false,
-          _textView.isFirstResponder,
-          !menuController.menuFrame.intersects(superview.convert(frame, to: nil))
-    else { return }
+
+    guard
+      let menuController = notification.object as? UIMenuController,
+      let superview = superview,
+      state.isFixingMenuPosition == false,
+      _textView.isFirstResponder,
+      !menuController.menuFrame.intersects(superview.convert(frame, to: nil))
+    else {
+      return
+    }
+
     menuController.setMenuVisible(false, animated: false)
     menuController.setTargetRect(frame, in: superview)
-    isFixingMenuPosition = true
+    state.isFixingMenuPosition = true
     menuController.setMenuVisible(true, animated: true)
-    isFixingMenuPosition = false
+    state.isFixingMenuPosition = false
   }
 
-  private func measureTextViewSize() -> CGSize {
-    let size = _textView.sizeThatFits(CGSize(width: self.bounds.width, height: CGFloat.infinity))
-    return .init(width: size.width, height: max(size.height, _minHeight))
+  override func sizeThatFits(_ size: CGSize) -> CGSize {
+    let calculatedSize = _textView.sizeThatFits(size)
+    return .init(
+      width: calculatedSize.width,
+      height: min(max(calculatedSize.height, state.resolvedMinHeight), state.resolvedMaxHeight)
+    )
   }
 
-  private func measureFrame(_ contentSize: CGSize) -> CGRect {
+  private func update(by configuration: NextGrowingTextView.Configuration) {
 
-    let selfSize: CGSize
+    state.resolvedMaxHeight = simulateHeight(configuration.maxLines)
+    state.resolvedMinHeight = simulateHeight(configuration.minLines)
 
-    if contentSize.height < _minHeight || !_textView.hasText {
-      selfSize = CGSize(width: contentSize.width, height: _minHeight)
-    } else if _maxHeight > 0 && contentSize.height > _maxHeight {
-      selfSize = CGSize(width: contentSize.width, height: _maxHeight)
-    } else {
-      selfSize = contentSize
-    }
+    fitToScrollView()
+  }
 
-    var _frame = frame
-    _frame.size.height = selfSize.height
-    return _frame
+  private func update(by state: State) {
+
   }
 
   private func fitToScrollView() {
 
+    func measureFrame(actualTextViewSize: CGSize) -> CGRect {
+
+      let containerSize: CGSize
+
+      if actualTextViewSize.height < state.resolvedMinHeight || !_textView.hasText {
+        containerSize = CGSize(width: actualTextViewSize.width, height: state.resolvedMinHeight)
+      } else if state.resolvedMaxHeight > 0 && actualTextViewSize.height > state.resolvedMaxHeight {
+        containerSize = CGSize(width: actualTextViewSize.width, height: state.resolvedMinHeight)
+      } else {
+        containerSize = actualTextViewSize
+      }
+
+      var _frame = frame
+      _frame.size.height = containerSize.height
+      return _frame
+    }
+
+    func measureTextViewSizeInCurrentBounds() -> CGSize {
+      let size = _textView.sizeThatFits(CGSize(width: self.bounds.width, height: CGFloat.infinity))
+      return .init(width: size.width, height: max(size.height, state.resolvedMinHeight))
+    }
+
     let shouldScrollToBottom = contentOffset.y == contentSize.height - frame.height
-    let actualTextViewSize = measureTextViewSize()
+    let actualTextViewSize = measureTextViewSizeInCurrentBounds()
     let oldScrollViewFrame = frame
 
     var _frame = bounds
@@ -238,53 +405,50 @@ open class NextGrowingTextView: UIScrollView {
     _textView.frame = _frame
     contentSize = _frame.size
 
-    let newScrollViewFrame = measureFrame(actualTextViewSize)
+    let newScrollViewFrame = measureFrame(actualTextViewSize: actualTextViewSize)
 
     if oldScrollViewFrame.height != newScrollViewFrame.height {
-      delegates.willChangeHeight(newScrollViewFrame.height)
-      
-      if isFlashScrollIndicatorsEnabled, newScrollViewFrame.height <= _maxHeight {
+      actionHandler(.willChangeHeight(newHeight: newScrollViewFrame.height))
+
+      if configuration.isFlashScrollIndicatorsEnabled,
+        newScrollViewFrame.height <= state.resolvedMaxHeight
+      {
         flashScrollIndicators()
       }
     }
 
     frame = newScrollViewFrame
 
-    if shouldScrollToBottom {
-      scrollToBottom()
+    if configuration.isAutomaticScrollToBottomEnabled == true, shouldScrollToBottom {
+      contentOffset.y = contentSize.height - frame.height
     }
 
     invalidateIntrinsicContentSize()
-    delegates.didChangeHeight(frame.height)
-  }
-
-  private func scrollToBottom() {
-    guard !isAutomaticScrollToBottomEnabled else { return }
-    contentOffset.y = contentSize.height - frame.height
-  }
-
-  private func updateMinimumAndMaximumHeight() {
-    _minHeight = simulateHeight(minNumberOfLines)
-    _maxHeight = simulateHeight(maxNumberOfLines)
-    fitToScrollView()
+    superview?.invalidateIntrinsicContentSize()
+    actionHandler(.didChangeHeight(newHeight: frame.height))
   }
 
   private func simulateHeight(_ line: Int) -> CGFloat {
 
-    let saveText = _textView.text
+    func measureTextViewHeight() -> CGFloat {
+      let size = _textView.sizeThatFits(CGSize(width: 1000, height: CGFloat.infinity))
+      return size.height
+    }
+
+    let savedText = _textView.attributedText
     var newText = "-"
 
     _textView.isHidden = true
 
-    for _ in 0..<line-1 {
+    for _ in 0..<line - 1 {
       newText += "\n|W|"
     }
 
     _textView.text = newText
 
-    let height = measureTextViewSize().height
+    let height = measureTextViewHeight()
 
-    _textView.text = saveText
+    _textView.attributedText = savedText
     _textView.isHidden = false
 
     return height
