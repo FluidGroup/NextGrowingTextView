@@ -1,4 +1,0 @@
-module NextGrowingTextView {
-    header "/Users/muukii/.ghq/github.com/muukii/NextGrowingTextView/.build/arm64-apple-macosx/debug/NextGrowingTextView.build/NextGrowingTextView-Swift.h"
-    requires objc
-}
