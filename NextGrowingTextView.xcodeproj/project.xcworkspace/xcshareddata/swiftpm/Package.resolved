@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "mondrianlayout",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/muukii/MondrianLayout.git",
+      "state" : {
+        "revision" : "239bc0b02b8abbc211720476d1554b736832bb9c",
+        "version" : "0.9.0"
+      }
+    },
+    {
+      "identity" : "storybook-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/eure/Storybook-ios",
+      "state" : {
+        "revision" : "48cd0bbecd40edabcce32e819c5a23014a49013b",
+        "version" : "1.9.0"
+      }
+    }
+  ],
+  "version" : 2
+}
