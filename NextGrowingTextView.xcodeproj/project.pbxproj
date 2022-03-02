@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4BDB87EA1DC0423F00E70D5B /* NextGrowingTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BDB87E81DC0423F00E70D5B /* NextGrowingTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BDB87F21DC0425600E70D5B /* NextGrowingInternalTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87F01DC0425600E70D5B /* NextGrowingInternalTextView.swift */; };
 		4BDB87F31DC0425600E70D5B /* NextGrowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87F11DC0425600E70D5B /* NextGrowingTextView.swift */; };
 		4BDB87FB1DC0426A00E70D5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87FA1DC0426A00E70D5B /* AppDelegate.swift */; };
@@ -46,8 +45,6 @@
 
 /* Begin PBXFileReference section */
 		4BDB87E51DC0423F00E70D5B /* NextGrowingTextView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NextGrowingTextView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BDB87E81DC0423F00E70D5B /* NextGrowingTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NextGrowingTextView.h; sourceTree = "<group>"; };
-		4BDB87E91DC0423F00E70D5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BDB87F01DC0425600E70D5B /* NextGrowingInternalTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextGrowingInternalTextView.swift; sourceTree = "<group>"; };
 		4BDB87F11DC0425600E70D5B /* NextGrowingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = NextGrowingTextView.swift; sourceTree = "<group>"; tabWidth = 2; };
 		4BDB87F81DC0426A00E70D5B /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,8 +101,6 @@
 			children = (
 				4BDB87F01DC0425600E70D5B /* NextGrowingInternalTextView.swift */,
 				4BDB87F11DC0425600E70D5B /* NextGrowingTextView.swift */,
-				4BDB87E81DC0423F00E70D5B /* NextGrowingTextView.h */,
-				4BDB87E91DC0423F00E70D5B /* Info.plist */,
 			);
 			path = NextGrowingTextView;
 			sourceTree = "<group>";
@@ -131,7 +126,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BDB87EA1DC0423F00E70D5B /* NextGrowingTextView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,7 +407,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = NextGrowingTextView/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.muuki.NextGrowingTextView;
@@ -434,7 +428,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = NextGrowingTextView/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.muuki.NextGrowingTextView;
