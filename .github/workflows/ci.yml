@@ -8,5 +8,5 @@ jobs:
         with:
           xcode-version: "13.2"
       - uses: actions/checkout@v2
-      - run: set -o pipefail && xcodebuild build -project NextGrowingTextView.xcodeproj -scheme NextGrowingTextView -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
-      - run: pod lib lint
+      # - run: set -o pipefail && xcodebuild build -project NextGrowingTextView.xcodeproj -scheme NextGrowingTextView -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
+      - run: pod lib lint --allow-warnings
