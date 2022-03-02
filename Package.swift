@@ -13,8 +13,7 @@ let package = Package(
   targets: [
     .target(
       name: "NextGrowingTextView",
-      path: "NextGrowingTextView",
-      exclude: ["NextGrowingTextView/Info.plist"]
+      path: "NextGrowingTextView"
     )
   ]
 )
