@@ -20,7 +20,10 @@
 		4B26B10227CF77B600DDBEC0 /* MondrianLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B10127CF77B600DDBEC0 /* MondrianLayout */; };
 		4B26B10727CF782000DDBEC0 /* CompositionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B10627CF782000DDBEC0 /* CompositionKit */; };
 		4B26B10C27CF7A6B00DDBEC0 /* TypedTextAttributes in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B10B27CF7A6B00DDBEC0 /* TypedTextAttributes */; };
-		4BDB87F21DC0425600E70D5B /* NextGrowingInternalTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87F01DC0425600E70D5B /* NextGrowingInternalTextView.swift */; };
+		4B26B11027CF7E9A00DDBEC0 /* Wrap in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B10F27CF7E9A00DDBEC0 /* Wrap */; };
+		4B26B34A27CF848100DDBEC0 /* SizingContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B26B34927CF848100DDBEC0 /* SizingContainerView.swift */; };
+		4B26B34E27CFD12D00DDBEC0 /* UIControl+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B26B34D27CFD12D00DDBEC0 /* UIControl+Closure.swift */; };
+		4BDB87F21DC0425600E70D5B /* InternalTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87F01DC0425600E70D5B /* InternalTextView.swift */; };
 		4BDB87F31DC0425600E70D5B /* NextGrowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87F11DC0425600E70D5B /* NextGrowingTextView.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,8 +57,11 @@
 		4B26B0D827CF761700DDBEC0 /* NextGrowingTextView-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NextGrowingTextView-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B26B0FC27CF775200DDBEC0 /* CenteringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteringViewController.swift; sourceTree = "<group>"; };
 		4B26B10D27CF7A8B00DDBEC0 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		4B26B34927CF848100DDBEC0 /* SizingContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizingContainerView.swift; sourceTree = "<group>"; };
+		4B26B34B27CF87A400DDBEC0 /* NextGrowingTextView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NextGrowingTextView.podspec; sourceTree = "<group>"; };
+		4B26B34D27CFD12D00DDBEC0 /* UIControl+Closure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Closure.swift"; sourceTree = "<group>"; };
 		4BDB87E51DC0423F00E70D5B /* NextGrowingTextView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NextGrowingTextView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BDB87F01DC0425600E70D5B /* NextGrowingInternalTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextGrowingInternalTextView.swift; sourceTree = "<group>"; };
+		4BDB87F01DC0425600E70D5B /* InternalTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalTextView.swift; sourceTree = "<group>"; };
 		4BDB87F11DC0425600E70D5B /* NextGrowingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = NextGrowingTextView.swift; sourceTree = "<group>"; tabWidth = 2; };
 		4BDB87FA1DC0426A00E70D5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BDB88011DC0426A00E70D5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -71,6 +77,7 @@
 				4B26B10727CF782000DDBEC0 /* CompositionKit in Frameworks */,
 				4B26B0F427CF767A00DDBEC0 /* StorybookKit in Frameworks */,
 				4B26B10C27CF7A6B00DDBEC0 /* TypedTextAttributes in Frameworks */,
+				4B26B11027CF7E9A00DDBEC0 /* Wrap in Frameworks */,
 				4B26B0F727CF767A00DDBEC0 /* NextGrowingTextView.framework in Frameworks */,
 				4B26B0F627CF767A00DDBEC0 /* StorybookUI in Frameworks */,
 			);
@@ -89,6 +96,7 @@
 		4B26B0D927CF761700DDBEC0 /* NextGrowingTextView-Demo */ = {
 			isa = PBXGroup;
 			children = (
+				4B26B34D27CFD12D00DDBEC0 /* UIControl+Closure.swift */,
 				4BDB87FA1DC0426A00E70D5B /* AppDelegate.swift */,
 				4BDB88011DC0426A00E70D5B /* Assets.xcassets */,
 				4BDB880F1DC042F700E70D5B /* Launch Screen.storyboard */,
@@ -110,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				4B26B10D27CF7A8B00DDBEC0 /* Package.swift */,
+				4B26B34B27CF87A400DDBEC0 /* NextGrowingTextView.podspec */,
 				4BDB87E71DC0423F00E70D5B /* NextGrowingTextView */,
 				4B26B0D927CF761700DDBEC0 /* NextGrowingTextView-Demo */,
 				4BDB87E61DC0423F00E70D5B /* Products */,
@@ -131,8 +140,9 @@
 		4BDB87E71DC0423F00E70D5B /* NextGrowingTextView */ = {
 			isa = PBXGroup;
 			children = (
-				4BDB87F01DC0425600E70D5B /* NextGrowingInternalTextView.swift */,
+				4BDB87F01DC0425600E70D5B /* InternalTextView.swift */,
 				4BDB87F11DC0425600E70D5B /* NextGrowingTextView.swift */,
+				4B26B34927CF848100DDBEC0 /* SizingContainerView.swift */,
 			);
 			path = NextGrowingTextView;
 			sourceTree = "<group>";
@@ -171,6 +181,7 @@
 				4B26B10127CF77B600DDBEC0 /* MondrianLayout */,
 				4B26B10627CF782000DDBEC0 /* CompositionKit */,
 				4B26B10B27CF7A6B00DDBEC0 /* TypedTextAttributes */,
+				4B26B10F27CF7E9A00DDBEC0 /* Wrap */,
 			);
 			productName = "NextGrowingTextView-Demo";
 			productReference = 4B26B0D827CF761700DDBEC0 /* NextGrowingTextView-Demo.app */;
@@ -232,6 +243,7 @@
 				4B26B0FE27CF77A900DDBEC0 /* XCRemoteSwiftPackageReference "MondrianLayout" */,
 				4B26B10327CF780F00DDBEC0 /* XCRemoteSwiftPackageReference "CompositionKit" */,
 				4B26B10827CF7A5D00DDBEC0 /* XCRemoteSwiftPackageReference "TypedTextAttributes" */,
+				4B26B10E27CF7E9A00DDBEC0 /* XCRemoteSwiftPackageReference "Wrap" */,
 			);
 			productRefGroup = 4BDB87E61DC0423F00E70D5B /* Products */;
 			projectDirPath = "";
@@ -271,6 +283,7 @@
 				4B26B0FD27CF775200DDBEC0 /* CenteringViewController.swift in Sources */,
 				4B26B0F127CF766A00DDBEC0 /* RootContainerViewController.swift in Sources */,
 				4B26B0F027CF766A00DDBEC0 /* Book.swift in Sources */,
+				4B26B34E27CFD12D00DDBEC0 /* UIControl+Closure.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,7 +292,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BDB87F31DC0425600E70D5B /* NextGrowingTextView.swift in Sources */,
-				4BDB87F21DC0425600E70D5B /* NextGrowingInternalTextView.swift in Sources */,
+				4B26B34A27CF848100DDBEC0 /* SizingContainerView.swift in Sources */,
+				4BDB87F21DC0425600E70D5B /* InternalTextView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +509,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GENERATE_INFOPLIST_FILE = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -520,6 +535,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GENERATE_INFOPLIST_FILE = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -596,6 +612,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		4B26B10E27CF7E9A00DDBEC0 /* XCRemoteSwiftPackageReference "Wrap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/VergeGroup/Wrap.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -623,6 +647,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4B26B10827CF7A5D00DDBEC0 /* XCRemoteSwiftPackageReference "TypedTextAttributes" */;
 			productName = TypedTextAttributes;
+		};
+		4B26B10F27CF7E9A00DDBEC0 /* Wrap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B26B10E27CF7E9A00DDBEC0 /* XCRemoteSwiftPackageReference "Wrap" */;
+			productName = Wrap;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

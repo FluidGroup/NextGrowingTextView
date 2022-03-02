@@ -25,11 +25,11 @@ import UIKit
 
 // MARK: - NextGrowingInternalTextView: UITextView
 
-internal class NextGrowingInternalTextView: UITextView {
+internal class InternalTextView: UITextView {
 
   // MARK: - Internal
 
-  var didChange: () -> Void = {}
+  var didChangeContent: () -> Void = {}
   var didUpdateHeightDependencies: () -> Void = {}
 
   private lazy var placeholderDisplayLabel = UILabel()
@@ -37,7 +37,7 @@ internal class NextGrowingInternalTextView: UITextView {
   override init(frame: CGRect, textContainer: NSTextContainer?) {
     super.init(frame: frame, textContainer: textContainer)
 
-    NotificationCenter.default.addObserver(self, selector: #selector(NextGrowingInternalTextView.textDidChangeNotification(_ :)), name: UITextView.textDidChangeNotification, object: self)
+    NotificationCenter.default.addObserver(self, selector: #selector(InternalTextView.textDidChangeNotification(_ :)), name: UITextView.textDidChangeNotification, object: self)
     isPlaceHolderMultiLine = false
     placeholderDisplayLabel.minimumScaleFactor = 0.4
     placeholderDisplayLabel.lineBreakMode = .byWordWrapping
@@ -54,14 +54,14 @@ internal class NextGrowingInternalTextView: UITextView {
 
   override var text: String! {
     didSet {
-      didChange()
+      didChangeContent()
       updatePlaceholder()
     }
   }
   
   override var attributedText: NSAttributedString! {
     didSet {
-      didChange()
+      didChangeContent()
       updatePlaceholder()
     }
   }
@@ -126,7 +126,7 @@ internal class NextGrowingInternalTextView: UITextView {
   @objc
   private dynamic func textDidChangeNotification(_ notification: Notification) {
     updatePlaceholder()
-    didChange()
+    didChangeContent()
   }
 
   private func updatePlaceholder() {
