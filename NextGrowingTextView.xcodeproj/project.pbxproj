@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4B26B0EC27CF766A00DDBEC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87FA1DC0426A00E70D5B /* AppDelegate.swift */; };
-		4B26B0ED27CF766A00DDBEC0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87FC1DC0426A00E70D5B /* ViewController.swift */; };
 		4B26B0EE27CF766A00DDBEC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BDB88011DC0426A00E70D5B /* Assets.xcassets */; };
 		4B26B0EF27CF766A00DDBEC0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BDB880F1DC042F700E70D5B /* Launch Screen.storyboard */; };
 		4B26B0F027CF766A00DDBEC0 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B26B0D027CF60B900DDBEC0 /* Book.swift */; };
@@ -17,6 +16,10 @@
 		4B26B0F627CF767A00DDBEC0 /* StorybookUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B0F527CF767A00DDBEC0 /* StorybookUI */; };
 		4B26B0F727CF767A00DDBEC0 /* NextGrowingTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB87E51DC0423F00E70D5B /* NextGrowingTextView.framework */; };
 		4B26B0F827CF767A00DDBEC0 /* NextGrowingTextView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB87E51DC0423F00E70D5B /* NextGrowingTextView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4B26B0FD27CF775200DDBEC0 /* CenteringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B26B0FC27CF775200DDBEC0 /* CenteringViewController.swift */; };
+		4B26B10227CF77B600DDBEC0 /* MondrianLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B10127CF77B600DDBEC0 /* MondrianLayout */; };
+		4B26B10727CF782000DDBEC0 /* CompositionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B10627CF782000DDBEC0 /* CompositionKit */; };
+		4B26B10C27CF7A6B00DDBEC0 /* TypedTextAttributes in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B10B27CF7A6B00DDBEC0 /* TypedTextAttributes */; };
 		4BDB87F21DC0425600E70D5B /* NextGrowingInternalTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87F01DC0425600E70D5B /* NextGrowingInternalTextView.swift */; };
 		4BDB87F31DC0425600E70D5B /* NextGrowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87F11DC0425600E70D5B /* NextGrowingTextView.swift */; };
 /* End PBXBuildFile section */
@@ -49,11 +52,12 @@
 		4B26B0D027CF60B900DDBEC0 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		4B26B0D227CF60E200DDBEC0 /* RootContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContainerViewController.swift; sourceTree = "<group>"; };
 		4B26B0D827CF761700DDBEC0 /* NextGrowingTextView-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NextGrowingTextView-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B26B0FC27CF775200DDBEC0 /* CenteringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteringViewController.swift; sourceTree = "<group>"; };
+		4B26B10D27CF7A8B00DDBEC0 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		4BDB87E51DC0423F00E70D5B /* NextGrowingTextView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NextGrowingTextView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDB87F01DC0425600E70D5B /* NextGrowingInternalTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextGrowingInternalTextView.swift; sourceTree = "<group>"; };
 		4BDB87F11DC0425600E70D5B /* NextGrowingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = NextGrowingTextView.swift; sourceTree = "<group>"; tabWidth = 2; };
 		4BDB87FA1DC0426A00E70D5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4BDB87FC1DC0426A00E70D5B /* ViewController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		4BDB88011DC0426A00E70D5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BDB880F1DC042F700E70D5B /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,7 +67,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B26B10227CF77B600DDBEC0 /* MondrianLayout in Frameworks */,
+				4B26B10727CF782000DDBEC0 /* CompositionKit in Frameworks */,
 				4B26B0F427CF767A00DDBEC0 /* StorybookKit in Frameworks */,
+				4B26B10C27CF7A6B00DDBEC0 /* TypedTextAttributes in Frameworks */,
 				4B26B0F727CF767A00DDBEC0 /* NextGrowingTextView.framework in Frameworks */,
 				4B26B0F627CF767A00DDBEC0 /* StorybookUI in Frameworks */,
 			);
@@ -83,11 +90,11 @@
 			isa = PBXGroup;
 			children = (
 				4BDB87FA1DC0426A00E70D5B /* AppDelegate.swift */,
-				4BDB87FC1DC0426A00E70D5B /* ViewController.swift */,
 				4BDB88011DC0426A00E70D5B /* Assets.xcassets */,
 				4BDB880F1DC042F700E70D5B /* Launch Screen.storyboard */,
 				4B26B0D027CF60B900DDBEC0 /* Book.swift */,
 				4B26B0D227CF60E200DDBEC0 /* RootContainerViewController.swift */,
+				4B26B0FC27CF775200DDBEC0 /* CenteringViewController.swift */,
 			);
 			path = "NextGrowingTextView-Demo";
 			sourceTree = "<group>";
@@ -102,6 +109,7 @@
 		4BDB87DB1DC0423F00E70D5B = {
 			isa = PBXGroup;
 			children = (
+				4B26B10D27CF7A8B00DDBEC0 /* Package.swift */,
 				4BDB87E71DC0423F00E70D5B /* NextGrowingTextView */,
 				4B26B0D927CF761700DDBEC0 /* NextGrowingTextView-Demo */,
 				4BDB87E61DC0423F00E70D5B /* Products */,
@@ -160,6 +168,9 @@
 			packageProductDependencies = (
 				4B26B0F327CF767A00DDBEC0 /* StorybookKit */,
 				4B26B0F527CF767A00DDBEC0 /* StorybookUI */,
+				4B26B10127CF77B600DDBEC0 /* MondrianLayout */,
+				4B26B10627CF782000DDBEC0 /* CompositionKit */,
+				4B26B10B27CF7A6B00DDBEC0 /* TypedTextAttributes */,
 			);
 			productName = "NextGrowingTextView-Demo";
 			productReference = 4B26B0D827CF761700DDBEC0 /* NextGrowingTextView-Demo.app */;
@@ -179,6 +190,8 @@
 			dependencies = (
 			);
 			name = NextGrowingTextView;
+			packageProductDependencies = (
+			);
 			productName = NextGrowingTextView;
 			productReference = 4BDB87E51DC0423F00E70D5B /* NextGrowingTextView.framework */;
 			productType = "com.apple.product-type.framework";
@@ -216,6 +229,9 @@
 			mainGroup = 4BDB87DB1DC0423F00E70D5B;
 			packageReferences = (
 				4B26B0CB27CF606400DDBEC0 /* XCRemoteSwiftPackageReference "Storybook-ios" */,
+				4B26B0FE27CF77A900DDBEC0 /* XCRemoteSwiftPackageReference "MondrianLayout" */,
+				4B26B10327CF780F00DDBEC0 /* XCRemoteSwiftPackageReference "CompositionKit" */,
+				4B26B10827CF7A5D00DDBEC0 /* XCRemoteSwiftPackageReference "TypedTextAttributes" */,
 			);
 			productRefGroup = 4BDB87E61DC0423F00E70D5B /* Products */;
 			projectDirPath = "";
@@ -251,8 +267,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B26B0ED27CF766A00DDBEC0 /* ViewController.swift in Sources */,
 				4B26B0EC27CF766A00DDBEC0 /* AppDelegate.swift in Sources */,
+				4B26B0FD27CF775200DDBEC0 /* CenteringViewController.swift in Sources */,
 				4B26B0F127CF766A00DDBEC0 /* RootContainerViewController.swift in Sources */,
 				4B26B0F027CF766A00DDBEC0 /* Book.swift in Sources */,
 			);
@@ -295,7 +311,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -328,7 +344,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -556,6 +572,30 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		4B26B0FE27CF77A900DDBEC0 /* XCRemoteSwiftPackageReference "MondrianLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/muukii/MondrianLayout.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+		4B26B10327CF780F00DDBEC0 /* XCRemoteSwiftPackageReference "CompositionKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/muukii/CompositionKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.1;
+			};
+		};
+		4B26B10827CF7A5D00DDBEC0 /* XCRemoteSwiftPackageReference "TypedTextAttributes" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/muukii/TypedTextAttributes.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -568,6 +608,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4B26B0CB27CF606400DDBEC0 /* XCRemoteSwiftPackageReference "Storybook-ios" */;
 			productName = StorybookUI;
+		};
+		4B26B10127CF77B600DDBEC0 /* MondrianLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B26B0FE27CF77A900DDBEC0 /* XCRemoteSwiftPackageReference "MondrianLayout" */;
+			productName = MondrianLayout;
+		};
+		4B26B10627CF782000DDBEC0 /* CompositionKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B26B10327CF780F00DDBEC0 /* XCRemoteSwiftPackageReference "CompositionKit" */;
+			productName = CompositionKit;
+		};
+		4B26B10B27CF7A6B00DDBEC0 /* TypedTextAttributes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B26B10827CF7A5D00DDBEC0 /* XCRemoteSwiftPackageReference "TypedTextAttributes" */;
+			productName = TypedTextAttributes;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
