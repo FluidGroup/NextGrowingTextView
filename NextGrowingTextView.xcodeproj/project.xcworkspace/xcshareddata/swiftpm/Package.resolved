@@ -1,77 +1,79 @@
 {
-  "pins" : [
-    {
-      "identity" : "compositionkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/muukii/CompositionKit.git",
-      "state" : {
-        "revision" : "a3153e6afe3260d71f7b95d48d5cbe913dc450b9",
-        "version" : "0.2.1"
+  "object": {
+    "pins": [
+      {
+        "package": "CompositionKit",
+        "repositoryURL": "https://github.com/muukii/CompositionKit.git",
+        "state": {
+          "branch": null,
+          "revision": "a3153e6afe3260d71f7b95d48d5cbe913dc450b9",
+          "version": "0.2.1"
+        }
+      },
+      {
+        "package": "Descriptors",
+        "repositoryURL": "https://github.com/muukii/Descriptors.git",
+        "state": {
+          "branch": null,
+          "revision": "b93f250d6e4007d512da77b1138acd03c11d4550",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "MondrianLayout",
+        "repositoryURL": "https://github.com/muukii/MondrianLayout.git",
+        "state": {
+          "branch": null,
+          "revision": "239bc0b02b8abbc211720476d1554b736832bb9c",
+          "version": "0.9.0"
+        }
+      },
+      {
+        "package": "RxSwift",
+        "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "b4307ba0b6425c0ba4178e138799946c3da594f8",
+          "version": "6.5.0"
+        }
+      },
+      {
+        "package": "Storybook",
+        "repositoryURL": "https://github.com/eure/Storybook-ios",
+        "state": {
+          "branch": null,
+          "revision": "48cd0bbecd40edabcce32e819c5a23014a49013b",
+          "version": "1.9.0"
+        }
+      },
+      {
+        "package": "TypedTextAttributes",
+        "repositoryURL": "https://github.com/muukii/TypedTextAttributes.git",
+        "state": {
+          "branch": null,
+          "revision": "eabf9c7985e13d17a70db53d27d584f39bd10830",
+          "version": "1.3.1"
+        }
+      },
+      {
+        "package": "Verge",
+        "repositoryURL": "https://github.com/VergeGroup/Verge",
+        "state": {
+          "branch": null,
+          "revision": "6c650bc080a2d2ebf0be66fe5dbcded013d4b3ca",
+          "version": "8.15.2"
+        }
+      },
+      {
+        "package": "Wrap",
+        "repositoryURL": "https://github.com/VergeGroup/Wrap.git",
+        "state": {
+          "branch": null,
+          "revision": "2d2cc9091881b2758e33f97c073039a6237b3275",
+          "version": "3.0.0"
+        }
       }
-    },
-    {
-      "identity" : "descriptors",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/muukii/Descriptors.git",
-      "state" : {
-        "revision" : "b93f250d6e4007d512da77b1138acd03c11d4550",
-        "version" : "0.1.0"
-      }
-    },
-    {
-      "identity" : "mondrianlayout",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/muukii/MondrianLayout.git",
-      "state" : {
-        "revision" : "239bc0b02b8abbc211720476d1554b736832bb9c",
-        "version" : "0.9.0"
-      }
-    },
-    {
-      "identity" : "rxswift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ReactiveX/RxSwift.git",
-      "state" : {
-        "revision" : "b4307ba0b6425c0ba4178e138799946c3da594f8",
-        "version" : "6.5.0"
-      }
-    },
-    {
-      "identity" : "storybook-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/eure/Storybook-ios",
-      "state" : {
-        "revision" : "48cd0bbecd40edabcce32e819c5a23014a49013b",
-        "version" : "1.9.0"
-      }
-    },
-    {
-      "identity" : "typedtextattributes",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/muukii/TypedTextAttributes.git",
-      "state" : {
-        "revision" : "eabf9c7985e13d17a70db53d27d584f39bd10830",
-        "version" : "1.3.1"
-      }
-    },
-    {
-      "identity" : "verge",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/VergeGroup/Verge",
-      "state" : {
-        "revision" : "6c650bc080a2d2ebf0be66fe5dbcded013d4b3ca",
-        "version" : "8.15.2"
-      }
-    },
-    {
-      "identity" : "wrap",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/VergeGroup/Wrap.git",
-      "state" : {
-        "revision" : "2d2cc9091881b2758e33f97c073039a6237b3275",
-        "version" : "3.0.0"
-      }
-    }
-  ],
-  "version" : 2
+    ]
+  },
+  "version": 1
 }
