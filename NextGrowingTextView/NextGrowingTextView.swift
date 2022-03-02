@@ -26,30 +26,55 @@ import UIKit
 open class NextGrowingTextView: UIView {
 
   public struct Configuration {
+    
+    public enum PlaceholderHidingMode {
+      /// Hides on focusing
+      case onFocus
+      /// Hides typed text one or more.
+      case onTypedText
+    }
 
     public var minLines: Int
     public var maxLines: Int
 
     public var isAutomaticScrollToBottomEnabled: Bool = true
     public var isFlashScrollIndicatorsEnabled: Bool = false
-
+        
+    public var placeholderHidingMode: PlaceholderHidingMode
+    
     public init(
+      placeholderHidingMode: PlaceholderHidingMode = .onTypedText,
       minLines: Int = 1,
       maxLines: Int = 3,
       isAutomaticScrollToBottomEnabled: Bool = true,
       isFlashScrollIndicatorsEnabled: Bool = false
     ) {
-
+    
+      self.placeholderHidingMode = placeholderHidingMode
       self.minLines = minLines
       self.maxLines = maxLines
       self.isAutomaticScrollToBottomEnabled = isAutomaticScrollToBottomEnabled
       self.isFlashScrollIndicatorsEnabled = isFlashScrollIndicatorsEnabled
     }
   }
-
+  
+  public struct State: Equatable {
+    public var isEditing: Bool = false
+    public var text: String = ""
+  }
+    
   public enum Action {
     case willChangeHeight(newHeight: CGFloat)
     case didChangeHeight(newHeight: CGFloat)
+    case didChangeState(state: State)
+  }
+  
+  public private(set) var state: State = .init() {
+    didSet {
+      guard oldValue != state else { return }
+      actionHandler(.didChangeState(state: state))
+      update(by: state)
+    }
   }
 
   public final var actionHandler: (Action) -> Void {
@@ -60,10 +85,15 @@ open class NextGrowingTextView: UIView {
   public final var textView: UITextView {
     scrollable.textView
   }
-
+  
+  public let placeholderLabel = UILabel()
+  
   public var configuration: Configuration {
     get { scrollable.configuration }
-    set { scrollable.configuration = newValue }
+    set {
+      scrollable.configuration = newValue
+      update(by: configuration)
+    }
   }
 
   private let scrollable: PlatterTextView
@@ -77,19 +107,71 @@ open class NextGrowingTextView: UIView {
     super.init(frame: .null)
 
     addSubview(sizingContainer)
+       
     sizingContainer.translatesAutoresizingMaskIntoConstraints = false
+    placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
+      
       sizingContainer.topAnchor.constraint(equalTo: topAnchor),
       sizingContainer.rightAnchor.constraint(equalTo: rightAnchor),
       sizingContainer.leftAnchor.constraint(equalTo: leftAnchor),
       sizingContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
     ])
+            
+    scrollable.textViewActionHandler = { [weak self] action in
+      guard let self = self else { return }
+      
+      switch action {
+      case .didBeginEditing:
+        self.state.isEditing = true
+      case .didEndEditing:
+        self.state.isEditing = false
+      case .didChangeContent:
+        self.state.text = self.textView.text ?? ""
+      case .didUpdateDepedenciesForHeight:
+        self.update(by: self.configuration)
+      }
+    }
   }
 
   @available(*, unavailable)
   public required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  private func update(by state: State) {
+    
+    switch configuration.placeholderHidingMode {
+    case .onTypedText:
+      placeholderLabel.isHidden = state.text.isEmpty == false
+    case .onFocus:
+      placeholderLabel.isHidden = state.isEditing
+    }
+    
+  }
+  
+  private func update(by configuration: Configuration) {
+    
+    placeholderLabel.removeFromSuperview()
+    
+    addSubview(placeholderLabel)
+    
+    let inset = textView.textContainerInset
+    
+    NSLayoutConstraint.activate([
+      
+      placeholderLabel.topAnchor.constraint(equalTo: topAnchor, constant: inset.top),
+      placeholderLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: inset.left + 4),
+      placeholderLabel.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -(inset.right + 4)),
+      placeholderLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -inset.bottom),
+            
+    ])
+    
+    // refresh with current state and new configuration
+    update(by: state)
+    
   }
 
   // MARK: - UIResponder
@@ -139,32 +221,11 @@ final class PlatterTextView: UIScrollView {
   }
 
   var actionHandler: (NextGrowingTextView.Action) -> Void = { _ in }
+  var textViewActionHandler: (InternalTextView.Action) -> Void = { _ in }
 
   var textView: UITextView {
     return _textView
   }
-
-  //  @available(*, deprecated, message: "Use isAutomaticScrollToBottomEnabled")
-  //  var disableAutomaticScrollToBottom: Bool {
-  //    return !isAutomaticScrollToBottomEnabled
-  //  }
-  //
-  //  var isAutomaticScrollToBottomEnabled = true
-  //
-  //  /// Use this to enable/disable flash scroll indicators while scroll height is less than max height
-  //  var isFlashScrollIndicatorsEnabled = false
-  //
-  //  var placeholderAttributedText: NSAttributedString? {
-  //    get { return _textView.placeholderAttributedText }
-  //    set { _textView.placeholderAttributedText = newValue }
-  //  }
-  //
-  //  /// true: Let the placeholder spans any number of lines. The view must be tall enough to contain it.
-  //  /// false: placeholder will shring by up to 0.4 if it cannot fit one line.
-  //  var isPlacholderMultiline: Bool {
-  //    get { _textView.isPlaceHolderMultiLine }
-  //    set { _textView.isPlaceHolderMultiLine = newValue }
-  //  }
 
   private let _textView: InternalTextView
 
@@ -174,7 +235,7 @@ final class PlatterTextView: UIScrollView {
       update(by: state)
     }
   }
-
+   
   // MARK: - Initializers
 
   override init(frame: CGRect) {
@@ -248,12 +309,21 @@ final class PlatterTextView: UIScrollView {
     _textView.backgroundColor = UIColor.clear
     addSubview(_textView)
 
-    _textView.didChangeContent = { [weak self] in
-      self?.fitToScrollView()
-    }
-    _textView.didUpdateHeightDependencies = { [weak self] in
+    _textView.actionHandler = { [weak self] action in
       guard let self = self else { return }
-      self.update(by: self.configuration)
+      
+      switch action {
+      case .didBeginEditing:
+        break
+      case .didEndEditing:
+        break
+      case .didChangeContent:
+        self.fitToScrollView()
+      case .didUpdateDepedenciesForHeight:
+        self.update(by: self.configuration)
+      }
+      
+      self.textViewActionHandler(action)
     }
 
     update(by: configuration)

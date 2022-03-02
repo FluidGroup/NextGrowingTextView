@@ -26,24 +26,45 @@ import UIKit
 // MARK: - NextGrowingInternalTextView: UITextView
 
 internal class InternalTextView: UITextView {
+  
+  enum Action {
+    case didBeginEditing
+    case didEndEditing
+    case didChangeContent
+    case didUpdateDepedenciesForHeight
+  }
 
   // MARK: - Internal
-
-  var didChangeContent: () -> Void = {}
-  var didUpdateHeightDependencies: () -> Void = {}
-
-  private lazy var placeholderDisplayLabel = UILabel()
+  
+  var actionHandler: (Action) -> Void = { _ in }
 
   override init(frame: CGRect, textContainer: NSTextContainer?) {
     super.init(frame: frame, textContainer: textContainer)
 
-    NotificationCenter.default.addObserver(self, selector: #selector(InternalTextView.textDidChangeNotification(_ :)), name: UITextView.textDidChangeNotification, object: self)
-    isPlaceHolderMultiLine = false
-    placeholderDisplayLabel.minimumScaleFactor = 0.4
-    placeholderDisplayLabel.lineBreakMode = .byWordWrapping
-    addSubview(placeholderDisplayLabel)
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(InternalTextView.textDidChangeNotification(_:)),
+      name: UITextView.textDidChangeNotification,
+      object: self
+    )
+    
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(InternalTextView.textDidBeginEditingNotification(_:)),
+      name: UITextView.textDidBeginEditingNotification,
+      object: self
+    )
+    
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(InternalTextView.textDidEndEditingNotification(_:)),
+      name: UITextView.textDidEndEditingNotification,
+      object: self
+    )
+    
   }
 
+  @available(*, unavailable)
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -54,82 +75,42 @@ internal class InternalTextView: UITextView {
 
   override var text: String! {
     didSet {
-      didChangeContent()
-      updatePlaceholder()
+      actionHandler(.didChangeContent)
     }
   }
-  
+
   override var attributedText: NSAttributedString! {
     didSet {
-      didChangeContent()
-      updatePlaceholder()
+      actionHandler(.didChangeContent)
     }
   }
-    
+
   override var font: UIFont? {
     didSet {
-      didUpdateHeightDependencies()
+      actionHandler(.didUpdateDepedenciesForHeight)
     }
   }
-    
+
   override var textContainerInset: UIEdgeInsets {
     didSet {
-      didUpdateHeightDependencies()
     }
-  }
-
-  var isPlaceHolderMultiLine: Bool {
-    get {
-      placeholderDisplayLabel.numberOfLines != 1
-    }
-    set {
-      if newValue {
-        placeholderDisplayLabel.numberOfLines = 0
-        placeholderDisplayLabel.adjustsFontSizeToFitWidth = false
-      } else {
-        placeholderDisplayLabel.numberOfLines = 1
-        placeholderDisplayLabel.adjustsFontSizeToFitWidth = true
-      }
-      updatePlaceholder()
-    }
-  }
-
-  var placeholderAttributedText: NSAttributedString? {
-    get {
-      placeholderDisplayLabel.attributedText
-    }
-    set {
-      placeholderDisplayLabel.attributedText = newValue
-      setNeedsLayout()
-    }
-  }
-
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    
-    let boundsInsettedSize = bounds.inset(by: textContainerInset).size
-    var size = placeholderDisplayLabel.sizeThatFits(boundsInsettedSize)
-    if !isPlaceHolderMultiLine {
-      size.height = min(boundsInsettedSize.height, size.height)
-    }
-    placeholderDisplayLabel.frame = CGRect(
-      origin: .init(
-        x: 5 + textContainerInset.left,
-        y: textContainerInset.top
-      ),
-      size: size
-    )
   }
 
   // MARK: Private
 
   @objc
   private dynamic func textDidChangeNotification(_ notification: Notification) {
-    updatePlaceholder()
-    didChangeContent()
+    actionHandler(.didChangeContent)
+  }
+  
+  @objc
+  private dynamic func textDidBeginEditingNotification(_ notification: Notification) {
+    actionHandler(.didBeginEditing)
+  }
+  
+  @objc
+  private dynamic func textDidEndEditingNotification(_ notification: Notification) {
+    actionHandler(.didEndEditing)
   }
 
-  private func updatePlaceholder() {
-    placeholderDisplayLabel.isHidden = !text.isEmpty
-  }
 }

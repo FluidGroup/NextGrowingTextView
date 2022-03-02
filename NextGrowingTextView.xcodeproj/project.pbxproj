@@ -16,13 +16,14 @@
 		4B26B0F627CF767A00DDBEC0 /* StorybookUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B0F527CF767A00DDBEC0 /* StorybookUI */; };
 		4B26B0F727CF767A00DDBEC0 /* NextGrowingTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB87E51DC0423F00E70D5B /* NextGrowingTextView.framework */; };
 		4B26B0F827CF767A00DDBEC0 /* NextGrowingTextView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB87E51DC0423F00E70D5B /* NextGrowingTextView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4B26B0FD27CF775200DDBEC0 /* CenteringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B26B0FC27CF775200DDBEC0 /* CenteringViewController.swift */; };
+		4B26B0FD27CF775200DDBEC0 /* FlexibleWidthCenteringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B26B0FC27CF775200DDBEC0 /* FlexibleWidthCenteringViewController.swift */; };
 		4B26B10227CF77B600DDBEC0 /* MondrianLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B10127CF77B600DDBEC0 /* MondrianLayout */; };
 		4B26B10727CF782000DDBEC0 /* CompositionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B10627CF782000DDBEC0 /* CompositionKit */; };
 		4B26B10C27CF7A6B00DDBEC0 /* TypedTextAttributes in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B10B27CF7A6B00DDBEC0 /* TypedTextAttributes */; };
 		4B26B11027CF7E9A00DDBEC0 /* Wrap in Frameworks */ = {isa = PBXBuildFile; productRef = 4B26B10F27CF7E9A00DDBEC0 /* Wrap */; };
 		4B26B34A27CF848100DDBEC0 /* SizingContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B26B34927CF848100DDBEC0 /* SizingContainerView.swift */; };
 		4B26B34E27CFD12D00DDBEC0 /* UIControl+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B26B34D27CFD12D00DDBEC0 /* UIControl+Closure.swift */; };
+		4B26B35027CFD31500DDBEC0 /* FixedWidthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B26B34F27CFD31500DDBEC0 /* FixedWidthViewController.swift */; };
 		4BDB87F21DC0425600E70D5B /* InternalTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87F01DC0425600E70D5B /* InternalTextView.swift */; };
 		4BDB87F31DC0425600E70D5B /* NextGrowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87F11DC0425600E70D5B /* NextGrowingTextView.swift */; };
 /* End PBXBuildFile section */
@@ -55,11 +56,12 @@
 		4B26B0D027CF60B900DDBEC0 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		4B26B0D227CF60E200DDBEC0 /* RootContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContainerViewController.swift; sourceTree = "<group>"; };
 		4B26B0D827CF761700DDBEC0 /* NextGrowingTextView-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NextGrowingTextView-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B26B0FC27CF775200DDBEC0 /* CenteringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteringViewController.swift; sourceTree = "<group>"; };
+		4B26B0FC27CF775200DDBEC0 /* FlexibleWidthCenteringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleWidthCenteringViewController.swift; sourceTree = "<group>"; };
 		4B26B10D27CF7A8B00DDBEC0 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		4B26B34927CF848100DDBEC0 /* SizingContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizingContainerView.swift; sourceTree = "<group>"; };
 		4B26B34B27CF87A400DDBEC0 /* NextGrowingTextView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NextGrowingTextView.podspec; sourceTree = "<group>"; };
 		4B26B34D27CFD12D00DDBEC0 /* UIControl+Closure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Closure.swift"; sourceTree = "<group>"; };
+		4B26B34F27CFD31500DDBEC0 /* FixedWidthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthViewController.swift; sourceTree = "<group>"; };
 		4BDB87E51DC0423F00E70D5B /* NextGrowingTextView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NextGrowingTextView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDB87F01DC0425600E70D5B /* InternalTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalTextView.swift; sourceTree = "<group>"; };
 		4BDB87F11DC0425600E70D5B /* NextGrowingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = NextGrowingTextView.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -102,7 +104,8 @@
 				4BDB880F1DC042F700E70D5B /* Launch Screen.storyboard */,
 				4B26B0D027CF60B900DDBEC0 /* Book.swift */,
 				4B26B0D227CF60E200DDBEC0 /* RootContainerViewController.swift */,
-				4B26B0FC27CF775200DDBEC0 /* CenteringViewController.swift */,
+				4B26B0FC27CF775200DDBEC0 /* FlexibleWidthCenteringViewController.swift */,
+				4B26B34F27CFD31500DDBEC0 /* FixedWidthViewController.swift */,
 			);
 			path = "NextGrowingTextView-Demo";
 			sourceTree = "<group>";
@@ -280,9 +283,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B26B0EC27CF766A00DDBEC0 /* AppDelegate.swift in Sources */,
-				4B26B0FD27CF775200DDBEC0 /* CenteringViewController.swift in Sources */,
+				4B26B0FD27CF775200DDBEC0 /* FlexibleWidthCenteringViewController.swift in Sources */,
 				4B26B0F127CF766A00DDBEC0 /* RootContainerViewController.swift in Sources */,
 				4B26B0F027CF766A00DDBEC0 /* Book.swift in Sources */,
+				4B26B35027CFD31500DDBEC0 /* FixedWidthViewController.swift in Sources */,
 				4B26B34E27CFD12D00DDBEC0 /* UIControl+Closure.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

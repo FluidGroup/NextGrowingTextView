@@ -118,7 +118,7 @@ final class SizingContainerView: UILabel /* To use `textRect` method */ {
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
- 
+  
   override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
     
     let size = content.sizeThatFits(bounds.size)
