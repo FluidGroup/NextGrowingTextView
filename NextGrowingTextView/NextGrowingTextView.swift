@@ -33,6 +33,12 @@ open class NextGrowingTextView: UIView {
       /// Hides typed text one or more.
       case onTypedText
     }
+    
+    public enum PlaceholderHorizontalLayout {
+      case leading
+      case center
+      case trailing
+    }
 
     public var minLines: Int
     public var maxLines: Int
@@ -41,9 +47,11 @@ open class NextGrowingTextView: UIView {
     public var isFlashScrollIndicatorsEnabled: Bool = false
         
     public var placeholderHidingMode: PlaceholderHidingMode
+    public var placeholderHorizontalLayout: PlaceholderHorizontalLayout
     
     public init(
       placeholderHidingMode: PlaceholderHidingMode = .onTypedText,
+      placeholderHorizontalLayout: PlaceholderHorizontalLayout = .leading,
       minLines: Int = 1,
       maxLines: Int = 3,
       isAutomaticScrollToBottomEnabled: Bool = true,
@@ -51,6 +59,7 @@ open class NextGrowingTextView: UIView {
     ) {
     
       self.placeholderHidingMode = placeholderHidingMode
+      self.placeholderHorizontalLayout = placeholderHorizontalLayout
       self.minLines = minLines
       self.maxLines = maxLines
       self.isAutomaticScrollToBottomEnabled = isAutomaticScrollToBottomEnabled
@@ -163,11 +172,26 @@ open class NextGrowingTextView: UIView {
     NSLayoutConstraint.activate([
       
       placeholderLabel.topAnchor.constraint(equalTo: topAnchor, constant: inset.top),
-      placeholderLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: inset.left + 4),
-      placeholderLabel.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -(inset.right + 4)),
       placeholderLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -inset.bottom),
-            
+                  
     ])
+    
+    switch configuration.placeholderHorizontalLayout {
+    case .leading:
+      NSLayoutConstraint.activate([
+        placeholderLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset.left + 4),
+        placeholderLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -(inset.right + 4)),
+      ])
+    case .center:
+      NSLayoutConstraint.activate([
+        placeholderLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
+      ])
+    case .trailing:
+      NSLayoutConstraint.activate([
+        placeholderLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: inset.left + 4),
+        placeholderLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -(inset.right + 4)),
+      ])
+    }
     
     // refresh with current state and new configuration
     update(by: state)

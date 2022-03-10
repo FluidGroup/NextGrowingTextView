@@ -15,6 +15,7 @@ final class FixedWidthViewController: CodeBasedViewController {
 
     let textView = NextGrowingTextView()&>.do {
       $0.configuration = .init(
+        placeholderHorizontalLayout: .center,
         minLines: 1,
         maxLines: 10,
         isAutomaticScrollToBottomEnabled: true,
