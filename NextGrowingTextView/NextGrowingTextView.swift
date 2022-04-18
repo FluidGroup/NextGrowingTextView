@@ -185,6 +185,8 @@ open class NextGrowingTextView: UIView {
     case .center:
       NSLayoutConstraint.activate([
         placeholderLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
+        placeholderLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: inset.left + 4),
+        placeholderLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -(inset.right + 4)),
       ])
     case .trailing:
       NSLayoutConstraint.activate([

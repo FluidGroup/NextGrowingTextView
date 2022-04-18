@@ -51,6 +51,11 @@ func makeControlPanel(for growingTextView: NextGrowingTextView) -> UIView {
       UIButton.make(title: "Min = 5") {
         growingTextView.configuration.minLines = 5
       }
+      
+      UIButton.make(title: "Long placeholder") {
+        growingTextView.placeholderLabel.text = "Placeholder, Placeholder, Placeholder, "
+        growingTextView.placeholderLabel.numberOfLines = 0
+      }
     }
 
   }
