@@ -5,7 +5,7 @@
 |<img width=200px src="https://user-images.githubusercontent.com/1888355/156420538-76b2d75b-ca50-46f0-b95f-056d2ef30953.gif" />|<img width=200px src="https://user-images.githubusercontent.com/1888355/156420669-f1a8003e-cd43-41c3-b482-7a5baf9d5561.gif" />|
 
 > 💡  
-**Displaying the user-interface on top of the keyboard?**  
+**Displaying the user-interface on top of the keyboard**  
 [muukii/Bureau](https://github.com/muukii/Bureau) enables you to show your user-interface on top of the keyboard in the easiest way.
 
 
