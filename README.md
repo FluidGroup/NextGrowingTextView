@@ -1,17 +1,18 @@
-# NextGrowingTextView - An Essential UI component for input text
+# NextGrowingTextView <sub> <br/>(An Essential UI component for input text)</sub>
 
 |flexible width | fixed width |
 |---|---|
 |<img width=200px src="https://user-images.githubusercontent.com/1888355/156420538-76b2d75b-ca50-46f0-b95f-056d2ef30953.gif" />|<img width=200px src="https://user-images.githubusercontent.com/1888355/156420669-f1a8003e-cd43-41c3-b482-7a5baf9d5561.gif" />|
 
 > 💡  
-**You want also to need to display a user-interface on top of the keyboard?**  
+**Displaying the user-interface on top of the keyboard**  
 [muukii/Bureau](https://github.com/muukii/Bureau) enables you to show your user-interface on top of the keyboard in the easiest way.
 
 
 ## How to use
 
-**Create an instance, then adding subview with layout**
+1. Create an instance
+2. Add subview with layout
 
 It supports AutoLayout completely.
 
@@ -30,7 +31,7 @@ growingTextView.configuration = .init(
 )
 ```
 
-**Accessing actual UITextView to apply settings in there**
+**Accessing actual UITextView to apply settings**
 ```swift
 growingTextView.textView
 ```
@@ -47,7 +48,7 @@ iOS 9.0+ Swift 5.5+
 
 ## Installation
 
-- Supports followings:
+- Supports the following:
   - CocoaPods
   - Swift Package Manager
 
