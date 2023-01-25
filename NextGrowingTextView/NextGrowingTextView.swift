@@ -406,7 +406,7 @@ final class PlatterTextView: UIScrollView {
       if actualTextViewSize.height < state.resolvedMinHeight || !_textView.hasText {
         containerSize = CGSize(width: actualTextViewSize.width, height: state.resolvedMinHeight)
       } else if state.resolvedMaxHeight > 0 && actualTextViewSize.height > state.resolvedMaxHeight {
-        containerSize = CGSize(width: actualTextViewSize.width, height: state.resolvedMinHeight)
+        containerSize = CGSize(width: actualTextViewSize.width, height: state.resolvedMaxHeight)
       } else {
         containerSize = actualTextViewSize
       }
