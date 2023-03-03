@@ -5,7 +5,8 @@ import PackageDescription
 let package = Package(
   name: "NextGrowingTextView",
   platforms: [
-    .iOS(.v10)
+    .iOS(.v10),
+    .macOS(.v10_15)
   ],
   products: [
     .library(name: "NextGrowingTextView", targets: ["NextGrowingTextView"])

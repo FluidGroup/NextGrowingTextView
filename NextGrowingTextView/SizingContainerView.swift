@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import UIKit
 
 final class SizingContainerView: UILabel /* To use `textRect` method */ {
@@ -135,3 +137,4 @@ final class SizingContainerView: UILabel /* To use `textRect` method */ {
 }
 
 
+#endif
