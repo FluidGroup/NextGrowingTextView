@@ -278,11 +278,6 @@ extension SymUITextView {
     
 }
 
-
-#endif
-
-
-
 /**
  This protocol can be implemented any types that can provide
  a rich text string.
@@ -522,3 +517,8 @@ public extension RichTextAttributeReader {
         return richText.attributes(at: range.location, effectiveRange: nil)
     }
 }
+
+
+
+
+#endif
