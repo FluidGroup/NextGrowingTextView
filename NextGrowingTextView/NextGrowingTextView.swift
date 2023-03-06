@@ -92,7 +92,7 @@ open class NextGrowingTextView: UIView {
     set { scrollable.actionHandler = newValue }
   }
 
-  public final var textView: UITextView {
+  public final var textView: SymUITextView {
     scrollable.textView
   }
   
@@ -250,7 +250,7 @@ final class PlatterTextView: UIScrollView {
   var actionHandler: (NextGrowingTextView.Action) -> Void = { _ in }
   var textViewActionHandler: (InternalTextView.Action) -> Void = { _ in }
 
-  var textView: UITextView {
+  var textView: SymUITextView {
     return _textView
   }
 

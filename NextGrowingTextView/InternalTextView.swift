@@ -25,7 +25,7 @@ import UIKit
 
 // MARK: - NextGrowingInternalTextView: UITextView
 
-internal class InternalTextView: UITextView {
+internal class InternalTextView: SymUITextView {
   
   enum Action {
     case didBeginEditing
