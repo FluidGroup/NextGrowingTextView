@@ -19,6 +19,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+#if canImport(UIKit)
 
 import Foundation
 import UIKit
@@ -91,7 +92,7 @@ open class NextGrowingTextView: UIView {
     set { scrollable.actionHandler = newValue }
   }
 
-  public final var textView: UITextView {
+  public final var textView: SymUITextView {
     scrollable.textView
   }
   
@@ -249,7 +250,7 @@ final class PlatterTextView: UIScrollView {
   var actionHandler: (NextGrowingTextView.Action) -> Void = { _ in }
   var textViewActionHandler: (InternalTextView.Action) -> Void = { _ in }
 
-  var textView: UITextView {
+  var textView: SymUITextView {
     return _textView
   }
 
@@ -480,3 +481,4 @@ final class PlatterTextView: UIScrollView {
     return height
   }
 }
+#endif
