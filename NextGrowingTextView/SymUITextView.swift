@@ -12,7 +12,7 @@ import UniformTypeIdentifiers
 
 
 
-public class SymUITextView: UITextView {
+open class SymUITextView: UITextView {
     
     //pasteItemsCallback returns true if ALL items were handled
     public var pasteItemsCallback: (([NSItemProvider]) -> Bool)? = nil
