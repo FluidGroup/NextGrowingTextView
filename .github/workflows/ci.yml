@@ -24,4 +24,5 @@ jobs:
             -project NextGrowingTextView.xcodeproj \
             -scheme GrowingTextViewDemo \
             -destination "generic/platform=iOS Simulator" \
+            -skipMacroValidation \
             CODE_SIGNING_ALLOWED=NO
