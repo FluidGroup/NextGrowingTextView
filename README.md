@@ -49,6 +49,10 @@ implementation for iOS 16 and later. It measures a hidden `TextEditor` with the
 same font, line spacing, and padding as the visible editor, then applies the
 measured height to the visible editor.
 
+<p align="center">
+  <img width="320" alt="Messages-style SwiftUI GrowingTextEditor preview" src="https://github.com/user-attachments/assets/350effb0-5f12-4bc8-ad44-da256d82c400" />
+</p>
+
 ```swift
 import NextGrowingTextViewSwiftUI
 
