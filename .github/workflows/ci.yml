@@ -1,12 +1,28 @@
 name: CI
-on: [push, pull_request, workflow_dispatch]
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
 jobs:
-  test:
-    runs-on: macos-11
+  build:
+    name: Build GrowingTextViewDemo
+    runs-on: macos-26
+
     steps:
-      - uses: maxim-lobanov/setup-xcode@v1.1
+      - uses: actions/checkout@v7
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1.7.0
         with:
-          xcode-version: "13.2"
-      - uses: actions/checkout@v2
-      # - run: set -o pipefail && xcodebuild build -project NextGrowingTextView.xcodeproj -scheme NextGrowingTextView -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
-      - run: pod lib lint --allow-warnings
+          xcode-version: "26.6"
+
+      - name: Build
+        run: |
+          xcodebuild build \
+            -project NextGrowingTextView.xcodeproj \
+            -scheme GrowingTextViewDemo \
+            -destination "generic/platform=iOS Simulator" \
+            -skipMacroValidation \
+            CODE_SIGNING_ALLOWED=NO

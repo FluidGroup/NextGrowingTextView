@@ -42,15 +42,48 @@ growingTextView.textView
 growingTextView.placeholderLabel
 ```
 
+### SwiftUI
+
+The Swift Package product `NextGrowingTextViewSwiftUI` provides a pure SwiftUI
+implementation for iOS 16 and later. It measures a hidden `TextEditor` with the
+same font, line spacing, and padding as the visible editor, then applies the
+measured height to the visible editor.
+
+<p align="center">
+  <img width="320" alt="Messages-style SwiftUI GrowingTextEditor preview" src="https://github.com/user-attachments/assets/350effb0-5f12-4bc8-ad44-da256d82c400" />
+</p>
+
+```swift
+import NextGrowingTextViewSwiftUI
+
+@State private var text = ""
+
+GrowingTextEditor(
+  text: $text,
+  placeholder: "Write something...",
+  configuration: GrowingTextEditorConfiguration(
+    minLines: 1,
+    maxLines: 6,
+    horizontalPadding: 8,
+    verticalPadding: 4,
+    lineSpacing: 3
+  ),
+  font: .body
+)
+```
+
+`GrowingTextView` is also available as a typealias when call sites prefer the
+TextView naming.
+
 ## Requirements
 
-iOS 9.0+ Swift 5.5+
+- UIKit API: iOS 9.0+ Swift 5.5+
+- Swift Package Manager products: iOS 16.0+
+- SwiftUI `GrowingTextEditor` API: iOS 16.0+
 
 ## Installation
 
-- Supports the following:
-  - CocoaPods
-  - Swift Package Manager
+Swift Package Manager is the supported installation method.
 
 ## Author
 
