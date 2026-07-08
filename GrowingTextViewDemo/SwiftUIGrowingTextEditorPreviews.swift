@@ -93,193 +93,13 @@ struct SwiftUIGrowingTextEditorMessagesPreview: View {
   """
 
   var body: some View {
-    ZStack {
-      SwiftUIGrowingTextEditorMessagesBackdrop()
-
-      VStack(spacing: 0) {
-        SwiftUIGrowingTextEditorMessagesHeader(
-          contactName: "Aoi",
-          status: "iMessage"
-        )
-
-        SwiftUIGrowingTextEditorMessagesTranscript(
-          messages: SwiftUIGrowingTextEditorMessage.samples
-        )
-
-        SwiftUIGrowingTextEditorMessagesComposer(text: $draft)
-      }
-      .background(.regularMaterial)
-    }
-    .background(Color(.systemGroupedBackground))
-  }
-}
-
-/// Atmospheric background used behind the Messages-style phone surface.
-private struct SwiftUIGrowingTextEditorMessagesBackdrop: View {
-
-  var body: some View {
-    LinearGradient(
-      colors: [
-        Color(red: 0.78, green: 0.90, blue: 1.00),
-        Color(red: 0.95, green: 0.97, blue: 1.00),
-        Color(red: 0.95, green: 0.92, blue: 0.86),
-      ],
-      startPoint: .topLeading,
-      endPoint: .bottomTrailing
-    )
-    .overlay(alignment: .topTrailing) {
-      Circle()
-        .fill(.blue.opacity(0.16))
-        .frame(width: 220, height: 220)
-        .blur(radius: 18)
-        .offset(x: 80, y: -80)
-    }
-    .overlay(alignment: .bottomLeading) {
-      Circle()
-        .fill(.mint.opacity(0.18))
-        .frame(width: 180, height: 180)
-        .blur(radius: 20)
-        .offset(x: -70, y: 70)
-    }
-  }
-}
-
-/// Header chrome for the Messages-style preview.
-private struct SwiftUIGrowingTextEditorMessagesHeader: View {
-
-  let contactName: String
-  let status: String
-
-  var body: some View {
-    HStack(spacing: 12) {
-      Image(systemName: "chevron.left")
-        .font(.headline.weight(.semibold))
-        .foregroundStyle(.blue)
-
-      Spacer()
-
-      VStack(spacing: 5) {
-        ZStack {
-          Circle()
-            .fill(
-              LinearGradient(
-                colors: [.cyan, .blue],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-              )
-            )
-
-          Text(String(contactName.prefix(1)))
-            .font(.headline.weight(.semibold))
-            .foregroundStyle(.white)
-        }
-        .frame(width: 42, height: 42)
-
-        VStack(spacing: 1) {
-          Text(contactName)
-            .font(.caption.weight(.semibold))
-
-          Text(status)
-            .font(.caption2)
-            .foregroundStyle(.secondary)
-        }
-      }
-
-      Spacer()
-
-      Image(systemName: "video")
-        .font(.headline.weight(.semibold))
-        .foregroundStyle(.blue)
-    }
-    .padding(.horizontal, 16)
-    .padding(.top, 14)
-    .padding(.bottom, 10)
-    .background(.thinMaterial)
-  }
-}
-
-/// Scrollable transcript for the Messages-style preview.
-private struct SwiftUIGrowingTextEditorMessagesTranscript: View {
-
-  let messages: [SwiftUIGrowingTextEditorMessage]
-
-  var body: some View {
     ScrollView {
-      VStack(spacing: 10) {
-        Text("Today 14:32")
-          .font(.caption2.weight(.medium))
-          .foregroundStyle(.secondary)
-          .padding(.vertical, 8)
-
-        ForEach(messages) { message in
-          SwiftUIGrowingTextEditorMessageBubble(message: message)
-        }
-      }
-      .padding(.horizontal, 14)
-      .padding(.bottom, 18)
     }
-    .scrollIndicators(.hidden)
-  }
-}
+    .safeAreaInset(edge: .bottom) { 
+      SwiftUIGrowingTextEditorMessagesComposer(text: $draft)
 
-/// One transcript bubble in the Messages-style preview.
-private struct SwiftUIGrowingTextEditorMessageBubble: View {
-
-  let message: SwiftUIGrowingTextEditorMessage
-
-  var body: some View {
-    HStack(alignment: .bottom, spacing: 6) {
-      if message.isOutgoing {
-        Spacer(minLength: 42)
-      }
-
-      Text(message.text)
-        .font(.body)
-        .foregroundStyle(message.isOutgoing ? .white : .primary)
-        .padding(.horizontal, 14)
-        .padding(.vertical, 10)
-        .background(messageBackground, in: bubbleShape)
-        .shadow(color: .black.opacity(message.isOutgoing ? 0.14 : 0.06), radius: 4, x: 0, y: 2)
-
-      if message.isOutgoing == false {
-        Spacer(minLength: 42)
-      }
     }
-    .frame(maxWidth: .infinity, alignment: message.isOutgoing ? .trailing : .leading)
-  }
 
-  private var messageBackground: some ShapeStyle {
-    if message.isOutgoing {
-      return AnyShapeStyle(
-        LinearGradient(
-          colors: [.blue, Color(red: 0.10, green: 0.45, blue: 1.00)],
-          startPoint: .topLeading,
-          endPoint: .bottomTrailing
-        )
-      )
-    } else {
-      return AnyShapeStyle(.white.opacity(0.92))
-    }
-  }
-
-  private var bubbleShape: UnevenRoundedRectangle {
-    if message.isOutgoing {
-      UnevenRoundedRectangle(
-        topLeadingRadius: 20,
-        bottomLeadingRadius: 20,
-        bottomTrailingRadius: 6,
-        topTrailingRadius: 20,
-        style: .continuous
-      )
-    } else {
-      UnevenRoundedRectangle(
-        topLeadingRadius: 20,
-        bottomLeadingRadius: 6,
-        bottomTrailingRadius: 20,
-        topTrailingRadius: 20,
-        style: .continuous
-      )
-    }
   }
 }
 
@@ -332,7 +152,10 @@ private struct SwiftUIGrowingTextEditorMessagesComposer: View {
     .padding(.horizontal, 12)
     .padding(.top, 10)
     .padding(.bottom, 14)
-    .background(.ultraThinMaterial)
+    .background(
+      RoundedRectangle(cornerRadius: 32).foregroundStyle(.thinMaterial)
+    )
+    .padding(16)
   }
 }
 
