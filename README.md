@@ -8,10 +8,12 @@
 **Displaying the user-interface on top of the keyboard**  
 [muukii/Bureau](https://github.com/muukii/Bureau) enables you to show your user-interface on top of the keyboard in the easiest way.
 
+## Usage
+
 ### SwiftUI
 
 The Swift Package product `NextGrowingTextViewSwiftUI` provides a pure SwiftUI
-implementation for iOS 16 and later. It measures a hidden `TextEditor` with the
+implementation for iOS 17 and later. It measures a hidden `TextEditor` with the
 same font, line spacing, and padding as the visible editor, then applies the
 measured height to the visible editor.
 
@@ -36,6 +38,42 @@ GrowingTextEditor(
 
 `GrowingTextView` is also available as a typealias when call sites prefer the
 TextView naming.
+
+### UIKit
+
+Use the `NextGrowingTextView` product when you need a UIKit `UIView` backed by
+`UITextView`. Configure the line limits, style the inner `textView`, and set up
+the placeholder label to match your design.
+
+```swift
+import NextGrowingTextView
+import UIKit
+
+let growingTextView = NextGrowingTextView()
+
+growingTextView.configuration = .init(
+  minLines: 1,
+  maxLines: 6,
+  isAutomaticScrollToBottomEnabled: true,
+  isFlashScrollIndicatorsEnabled: true
+)
+
+growingTextView.textView.font = .preferredFont(forTextStyle: .body)
+growingTextView.placeholderLabel.text = "Write something..."
+growingTextView.placeholderLabel.font = growingTextView.textView.font
+growingTextView.placeholderLabel.textColor = .placeholderText
+
+growingTextView.actionHandler = { action in
+  switch action {
+  case .willChangeHeight(let newHeight):
+    print("Will change height:", newHeight)
+  case .didChangeHeight(let newHeight):
+    print("Did change height:", newHeight)
+  case .didChangeState:
+    break
+  }
+}
+```
 
 ## Author
 
