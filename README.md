@@ -13,9 +13,9 @@
 ### SwiftUI
 
 The Swift Package product `NextGrowingTextViewSwiftUI` provides a pure SwiftUI
-implementation for iOS 17 and later. It measures a hidden `TextEditor` with the
-same font, line spacing, and padding as the visible editor, then applies the
-measured height to the visible editor.
+implementation for iOS 16 and macOS 13 and later. It measures a hidden
+`TextEditor` with the same font, line spacing, and padding as the visible
+editor, then applies the measured height to the visible editor.
 
 ```swift
 import NextGrowingTextViewSwiftUI

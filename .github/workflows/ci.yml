@@ -18,6 +18,9 @@ jobs:
         with:
           xcode-version: "26.6"
 
+      - name: Build SwiftUI product
+        run: swift build --target NextGrowingTextViewSwiftUI
+
       - name: Build
         run: |
           xcodebuild build \

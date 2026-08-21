@@ -5,7 +5,8 @@ import PackageDescription
 let package = Package(
   name: "NextGrowingTextView",
   platforms: [
-    .iOS(.v16)
+    .iOS(.v16),
+    .macOS(.v13),
   ],
   products: [
     .library(name: "NextGrowingTextView", targets: ["NextGrowingTextView"]),
@@ -19,7 +20,7 @@ let package = Package(
     .target(
       name: "NextGrowingTextViewSwiftUI",
       path: "NextGrowingTextViewSwiftUI"
-    )
+    ),
   ],
   swiftLanguageModes: [.v6]
 )
