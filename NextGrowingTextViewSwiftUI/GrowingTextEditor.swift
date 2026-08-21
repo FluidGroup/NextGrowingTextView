@@ -86,24 +86,23 @@ public struct GrowingTextEditor<Placeholder: View>: View {
   }
 
   public var body: some View {
-    ZStack(alignment: .topLeading) {
-      if text.isEmpty {
-        placeholder
-          .foregroundStyle(.secondary)
-          .padding(placeholderInsets)
-          .allowsHitTesting(false)
-          .accessibilityHidden(true)
+    editor
+      .frame(height: resolvedHeight)
+      .overlay(alignment: .topLeading) {
+        if text.isEmpty {
+          placeholder
+            .foregroundStyle(.secondary)
+            .padding(placeholderInsets)
+            .allowsHitTesting(false)
+            .accessibilityHidden(true)
+        }
       }
-
-      editor
-        .frame(height: resolvedHeight)
-    }
-    .background(alignment: .topLeading) {
-      measurementLayer
-    }
-    .onPreferenceChange(GrowingTextEditorHeightPreferenceKey.self) { values in
-      measurements.update(with: values)
-    }
+      .background(alignment: .topLeading) {
+        measurementLayer
+      }
+      .onPreferenceChange(GrowingTextEditorHeightPreferenceKey.self) { values in
+        measurements.update(with: values)
+      }
   }
 
   @ViewBuilder
@@ -236,14 +235,21 @@ private enum GrowingTextEditorMeasurementRole: Hashable {
 
 @available(iOS 16.0, *)
 private enum GrowingTextEditorTextEditorInset {
-  /// Approximate default inset SwiftUI's `TextEditor` keeps between its outer
-  /// bounds and first rendered glyph. SwiftUI does not expose this value, so the
-  /// placeholder uses the same small adjustment the previous Journal editor
-  /// applied by hand.
-  static let top: CGFloat = 8
-  static let leading: CGFloat = 4
-  static let bottom: CGFloat = 8
-  static let trailing: CGFloat = 4
+  #if os(macOS)
+    /// AppKit's editor has no vertical text-container inset and uses five-point
+    /// line-fragment padding on each horizontal edge.
+    static let top: CGFloat = 0
+    static let leading: CGFloat = 5
+    static let bottom: CGFloat = 0
+    static let trailing: CGFloat = 5
+  #else
+    /// Approximate default inset SwiftUI's UIKit-backed `TextEditor` keeps
+    /// between its outer bounds and first rendered glyph.
+    static let top: CGFloat = 8
+    static let leading: CGFloat = 4
+    static let bottom: CGFloat = 8
+    static let trailing: CGFloat = 4
+  #endif
 }
 
 @available(iOS 16.0, *)
