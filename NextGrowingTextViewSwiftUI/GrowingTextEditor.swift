@@ -238,10 +238,15 @@ private enum GrowingTextEditorMeasurementRole: Hashable {
 private enum GrowingTextEditorTextEditorInset {
   /// Approximate default inset SwiftUI's `TextEditor` keeps between its outer
   /// bounds and first rendered glyph. SwiftUI does not expose this value, so the
-  /// placeholder uses the same small adjustment the previous Journal editor
-  /// applied by hand.
+  /// placeholder reproduces the platform-specific leading inset.
   static let top: CGFloat = 8
-  static let leading: CGFloat = 4
+  static let leading: CGFloat = {
+    #if os(macOS)
+      5
+    #else
+      4
+    #endif
+  }()
   static let bottom: CGFloat = 8
   static let trailing: CGFloat = 4
 }
